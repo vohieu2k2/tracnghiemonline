@@ -145,7 +145,7 @@
                     echo '<div class="panel"><table class="table table-striped title1"  style="vertical-align:middle">
                     <tr style="text-align: center">
                     <td style="vertical-align:middle"><b>STT</b></td>
-                    <td style="vertical-align:middle"><b>Loại câu hỏi</b></td>
+                    <td style="vertical-align:middle"><b>Tên bài thi</b></td>
                     <td style="vertical-align:middle"><b>Tổng số câu hỏi</b></td>
                     <td style="vertical-align:middle"><b>Thời gian</b></td>
                     <td style="vertical-align:middle"><b>Trạng thái</b></td>
@@ -196,6 +196,7 @@
                     <table class="table table-striped title1" >
                     <tr style="text-align: center">
                         <td style="vertical-align:middle"><b>STT</b></td>
+                        <td style="vertical-align:middle"><b>Tên bài thi</b></td>
                         <td style="vertical-align:middle"><b>Ngày thi</b></td>
                         <td style="vertical-align:middle"><b>Trạng thái</b></td>
                         <td style="vertical-align:middle"><b>Số lượng thí sinh thi</b></td>
@@ -208,6 +209,7 @@
                             $eid = $row['eid'];
                             $title = $row['title'];
                             $statusExam = $row['status'];
+                            $dateExam = $row['examdate'];
                             $c++;
 
                             // Thực hiện truy vấn đến bảng history để đếm số lượng tham gia quiz này
@@ -225,8 +227,9 @@
                                 echo '<tr style="text-align: center">
                                     <td style="color:#99cc32"><b>' . $c . '</b></td>
                                     <td style="color:#99cc32">
-                                        <a href="dash.php?q=2&eid='. $eid .'">' . $title . '</a>
+                                        <a href="dash.php?q=2&eid='. $eid .'" style="color: black">' . $title . '</a>
                                     </td>
+                                    <td style="vertical-align:middle"><b>' . $dateExam . '</b></td>
                                     <td style="vertical-align:middle">
                                         <b>Đã kích hoạt</b>
                                     </td>
@@ -236,8 +239,9 @@
                                 echo '<tr style="text-align: center">
                                     <td style="color:#99cc32"><b>' . $c . '</b></td>
                                     <td style="color:#99cc32">
-                                        <a href="dash.php?q=2&eid='. $eid .'">' . $title . '</a>
+                                        <a href="dash.php?q=2&eid='. $eid .'" style="color: black">' . $title . '</a>
                                     </td>
+                                    <td style="vertical-align:middle"><b>' . $dateExam . '</b></td>
                                     <td style="vertical-align:middle">
                                         <b>Chưa kích hoạt</b>
                                     </td>
@@ -340,7 +344,7 @@
                                     echo '<tr>
                                     <td style="color:#99cc32; text-align: center"><b>' . $c . '</b></td>
                                     <td style="vertical-align:middle">
-                                        <a href="dash.php?q=result&eid='. $eid .'&username='. $e .'">' . $name . '</a>
+                                        <a href="dash.php?q=result&eid='. $eid .'&username='. $e .'" style="color: black">' . $name . '</a>
                                     </td>
                                     <td style="vertical-align:middle; text-align: center">' . $s . '</td>
                                     <td style="vertical-align:middle; text-align: center">
@@ -402,7 +406,7 @@
 
                     $result = mysqli_query($con, "SELECT * FROM user") or die('Error');
                     echo '<div class="panel"><table class="table table-striped title1">
-                    <tr>
+                    <tr style="text-align:center">
                         <td style="vertical-align:middle"><b>STT</b></td>
                         <td style="vertical-align:middle"><b>Tên</b></td>
                         <td style="vertical-align:middle"><b>Giới tính</b></td>
@@ -417,12 +421,12 @@
                         $username1 = $row['username'];
 
                         echo '<tr>
-                            <td style="vertical-align:middle">' . $c++ . '</td>
+                            <td style="vertical-align:middle; text-align:center">' . $c++ . '</td>
                             <td style="vertical-align:middle">' . $name . '</td>
-                            <td style="vertical-align:middle">' . $gender . '</td>
-                            <td style="vertical-align:middle">' . $username1 . '</td>
-                            <td style="vertical-align:middle">' . $phno . '</td>
-                        <td style="vertical-align:middle"><a title="Xóa tài khoản" href="update.php?dusername=' . $username1 . '"><b><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></b></a></td></tr>';
+                            <td style="vertical-align:middle; text-align:center">' . $gender . '</td>
+                            <td style="vertical-align:middle; text-align:center">' . $username1 . '</td>
+                            <td style="vertical-align:middle; text-align:center">' . $phno . '</td>
+                        <td style="vertical-align:middle; text-align:center"><a title="Xóa tài khoản" href="update.php?dusername=' . $username1 . '"><b><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></b></a></td></tr>';
                     }
                     $c = 0;
                     echo '</table></div>';
@@ -485,6 +489,14 @@
                                 <label class="col-md-12 control-label" for="name"></label>  
                                 <div class="col-md-12">
                                 <input id="name" name="name" placeholder="Tên đề thi" class="form-control input-md" type="text">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-12 control-label" for="name"></label>  
+                                <div class="col-md-12">
+                                <input id="date" name="date" placeholder="Ngày thi" class="form-control input-md" type="text">
 
                                 </div>
                             </div>
@@ -668,7 +680,7 @@
                     echo '</table></div></div>';
                 }
                 //Trang chủ
-                if ($_GET['q'] == 0 && !(@$_GET['username'])){
+                if ($_GET['q'] == 0 && !(@$_GET['username']) && !(@$_GET['sort'])){
                     
                     if(isset($_GET['show'])){
                         $show = $_GET['show'];
@@ -685,53 +697,95 @@
                     <table class="table table-striped title1" >
                     <tr>
                         <td style="vertical-align:middle; text-align: center"><b>STT</b></td>
-                        <td style="vertical-align:middle"><b>Tên học viên</b></td>
+                        <td style="vertical-align:middle; text-align: center">
+                            <a href="dash.php?q=0&sort=name" style="color: black; font-weight: bold">Tên học viên</a>
+                        </td>
                         <td style="vertical-align:middle; text-align: center"><b>Số bài đã làm</b></td>
-                        <td style="vertical-align:middle; text-align: center"><b>Tổng điểm trung bình</b></td>
+                        <td style="vertical-align:middle; text-align: center">
+                            <a href="dash.php?q=0&sort=score" style="color: black; font-weight: bold">Tổng điểm trung bình</a>
+                        </td>
                     </tr>';
 
                     $q1 = mysqli_query($con, "SELECT * FROM quiz") or die('Error223');
                     $total = mysqli_num_rows($q1);
 
-                    $q = mysqli_query($con, "SELECT * FROM user ORDER BY 
-                    SUBSTRING_INDEX(name, ' ', -1) ASC, 
-                    name ASC LIMIT ".($showfrom-1).",10") or die('Error223');
-                    $stt = 1;
+                    $q = mysqli_query($con, "SELECT * FROM user LIMIT ".($showfrom-1).",10") or die('Error223');
 
-                    while ($row = mysqli_fetch_array($q)) {
-                        $username = $row['username'];
-                        $name = $row['name'];
-                        $q2 = mysqli_query($con, "SELECT * FROM history WHERE username ='" . $username . "'") or die('Error223');
-                        $c = 0;
-                        $sum = 0;
-                        while ($row2 = mysqli_fetch_array($q2)){
-                            $totalmark = $row2['totalscore'];
-                            if($totalmark >= 10){
-                                $totalmark = 10;
+                    // Khởi tạo mảng để chứa các đối tượng
+                    $userArray = array();
+
+                    // Duyệt qua từng dòng kết quả và thêm vào mảng
+                    while($row = mysqli_fetch_assoc($q)) {
+                        // Tạo một đối tượng mới với các thuộc tính name, username, examnumber, score
+                        $userObject = new stdClass();
+                        $userObject->name = $row['name'];
+                        $userObject->username = $row['username'];
+                        // Tìm số lượng bài thi đã làm
+                        $q2 = mysqli_query($con, "SELECT * FROM history WHERE username ='" . $userObject->username . "'") or die('Error223');
+                            $c = 0;
+                            $sum = 0;
+                            while ($row2 = mysqli_fetch_array($q2)){
+                                $totalmark = $row2['totalscore'];
+                                if($totalmark >= 10){
+                                    $totalmark = 10;
+                                }
+                                $sum += $totalmark;
+                                $c++;
                             }
-                            $sum += $totalmark;
-                            $c++;
-                        }
-                        if($c > 0){
-                            $average = round($sum/$c, 2);
 
+                            $userObject->examnumber = $c;
+                            
+                            if($c > 0){
+                                $userObject->score = round($sum/$c, 2);           
+                            } else{
+                                $userObject->score = 0;
+                            }
+                        // Thêm đối tượng vào mảng
+                        $userArray[] = $userObject;
+                    }
+
+                    usort($userArray, function($a, $b) {
+                        // Tách phần tên của $a và lấy phần cuối cùng
+                        $namePartsA = explode(' ', $a->name);
+                        $lastNameA = array_pop($namePartsA);  // Lưu kết quả của explode vào biến trước
+                    
+                        // Tách phần tên của $b và lấy phần cuối cùng
+                        $namePartsB = explode(' ', $b->name);
+                        $lastNameB = array_pop($namePartsB);  // Lưu kết quả của explode vào biến trước
+                    
+                        // So sánh phần tên cuối cùng
+                        if ($lastNameA === $lastNameB) {
+                            // Nếu phần cuối giống nhau, so sánh phần còn lại của tên
+                            $firstPartA = implode(' ', $namePartsA);
+                            $firstPartB = implode(' ', $namePartsB);
+                            return strcmp($firstPartA, $firstPartB);
+                        }
+                    
+                        // So sánh phần tên cuối nếu không trùng
+                        return strcmp($lastNameA, $lastNameB);
+                    });
+
+                    $stt = 1;
+                    foreach ($userArray as $userObject) {
+                        // Truy cập và xử lý các thuộc tính của từng đối tượng trong mảng
+                        if( $userObject->score > 0){
                             echo '<tr>
-                                    <td style="color:#99cc32; text-align: center"><b>' . $stt . '</b></td>
-                                    <td style="vertical-align:middle">
-                                        <a href="dash.php?q=0&username='. $username .'">' . $name . '</a>
-                                    </td>
-                                    <td style="vertical-align:middle; text-align: center">' . $c .'/' . $total .'</td>
-                                    <td style="vertical-align:middle; text-align: center">'. $average .'</td>
-                                    <td style="vertical-align:middle">';
-                        } else{
+                            <td style="color:#99cc32; text-align: center"><b>' . $stt . '</b></td>
+                            <td style="vertical-align:middle">
+                                <a href="dash.php?q=0&username='. $userObject->username .'" style="color: black">' .  $userObject->name . '</a>
+                            </td>
+                            <td style="vertical-align:middle; text-align: center">' . $userObject->examnumber .'/' . $total .'</td>
+                            <td style="vertical-align:middle; text-align: center">'. $userObject->score .'</td>
+                            <td style="vertical-align:middle"> </tr>';
+                        } else {
                             echo '<tr>
-                                    <td style="color:#99cc32; text-align: center"><b>' . $stt . '</b></td>
-                                    <td style="vertical-align:middle">
-                                        <a href="dash.php?q=0&username='. $username .'">' . $name . '</a>
-                                    </td>
-                                    <td style="vertical-align:middle; text-align: center">Chưa làm bài</td>
-                                    <td style="vertical-align:middle; text-align: center">0</td>
-                                    <td style="vertical-align:middle">';
+                                <td style="color:#99cc32; text-align: center"><b>' . $stt . '</b></td>
+                                <td style="vertical-align:middle">
+                                    <a href="dash.php?q=0&username='. $userObject->username .'" style="color: black">' .  $userObject->name . '</a>
+                                </td>
+                                <td style="vertical-align:middle; text-align: center">Chưa làm bài</td>
+                                <td style="vertical-align:middle; text-align: center">'. $userObject->score .'</td>
+                                <td style="vertical-align:middle"> </tr>';
                         }
                         $stt++;
                     }
@@ -774,7 +828,8 @@
                         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
                     }
                     echo '</tr></table></div>';
-                } else if($_GET['q'] == 0){
+
+                } else if($_GET['q'] == 0 && (@$_GET['username'])){
                     // Lấy giá trị của 'username'
                     $username = $_GET['username'];
 
@@ -799,7 +854,8 @@
                     <table class="table table-striped title1" >
                     <tr>
                         <td style="vertical-align:middle; text-align: center"><b>STT</b></td>
-                        <td style="vertical-align:middle"><b>Ngày thi</b></td>
+                        <td style="vertical-align:middle; text-align: center"><b>Tên bài thi</b></td>
+                        <td style="vertical-align:middle; text-align: center"><b>Ngày thi</b></td>
                         <td style="vertical-align:middle; text-align: center"><b>Điểm tự học</b></td>
                         <td style="vertical-align:middle; text-align: center"><b>Điểm cộng trên lớp</b></td>
                         <td style="vertical-align:middle; text-align: center"><b>Tổng điểm</b></td>
@@ -823,13 +879,15 @@
                             $q12 = mysqli_query($con, "SELECT * FROM quiz WHERE eid='$e' ") or die('Error231');
                                     while ($row = mysqli_fetch_array($q12)) {
                                         $title = $row['title'];
+                                        $date  = $row['examdate'];
                                     }
                                     $c++;
                                     echo '<tr>
                                     <td style="color:#99cc32; text-align: center"><b>' . $c . '</b></td>
                                     <td style="vertical-align:middle">
-                                        <a href="dash.php?q=result&eid='. $e . '&username='. $username .'">' . $title . '</a>
+                                        <a href="dash.php?q=result&eid='. $e . '&username='. $username .'" style="color: black">' . $title . '</a>
                                     </td>
+                                    <td style="vertical-align:middle; text-align: center">' . $date . '</td>
                                     <td style="vertical-align:middle; text-align: center">' . $s . '</td>
                                     <td style="vertical-align:middle; text-align: center">
                                         <button class="arrow-button" type="button" onclick="changeScore(this,\''.$username.'\', \''.$e.'\', -0.5)">-</button>
@@ -883,6 +941,286 @@
                         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
                     }
                     echo '</tr></table></div>';
+                } else if($_GET['q'] == 0 && (@$_GET['sort'])){
+                    if (@$_GET['sort'] == 'name'){
+                        if(isset($_GET['show'])){
+                            $show = $_GET['show'];
+                            $showfrom = (($show-1)*10) + 1;
+                            $showtill = $showfrom + 9;
+                        }
+                        else{
+                            $show = 1;
+                            $showfrom = 1;
+                            $showtill = 10;
+                        }
+    
+                        echo '<div class="panel title">
+                        <table class="table table-striped title1" >
+                        <tr>
+                            <td style="vertical-align:middle; text-align: center"><b>STT</b></td>
+                            <td style="vertical-align:middle; text-align: center">
+                                <a href="dash.php?q=0&sort=name" style="color: black; font-weight: bold">Tên học viên</a>
+                            </td>
+                            <td style="vertical-align:middle; text-align: center"><b>Số bài đã làm</b></td>
+                            <td style="vertical-align:middle; text-align: center">
+                                <a href="dash.php?q=0&sort=score" style="color: black; font-weight: bold;">Tổng điểm trung bình</a>
+                            </td>
+                        </tr>';
+    
+                        $q1 = mysqli_query($con, "SELECT * FROM quiz") or die('Error223');
+                        $total = mysqli_num_rows($q1);
+    
+                        $q = mysqli_query($con, "SELECT * FROM user LIMIT ".($showfrom-1).",10") or die('Error223');
+    
+                        // Khởi tạo mảng để chứa các đối tượng
+                        $userArray = array();
+    
+                        // Duyệt qua từng dòng kết quả và thêm vào mảng
+                        while($row = mysqli_fetch_assoc($q)) {
+                            // Tạo một đối tượng mới với các thuộc tính name, username, examnumber, score
+                            $userObject = new stdClass();
+                            $userObject->name = $row['name'];
+                            $userObject->username = $row['username'];
+                            // Tìm số lượng bài thi đã làm
+                            $q2 = mysqli_query($con, "SELECT * FROM history WHERE username ='" . $userObject->username . "'") or die('Error223');
+                                $c = 0;
+                                $sum = 0;
+                                while ($row2 = mysqli_fetch_array($q2)){
+                                    $totalmark = $row2['totalscore'];
+                                    if($totalmark >= 10){
+                                        $totalmark = 10;
+                                    }
+                                    $sum += $totalmark;
+                                    $c++;
+                                }
+    
+                                $userObject->examnumber = $c;
+                                
+                                if($c > 0){
+                                    $userObject->score = round($sum/$c, 2);           
+                                } else{
+                                    $userObject->score = 0;
+                                }
+                            // Thêm đối tượng vào mảng
+                            $userArray[] = $userObject;
+                        }
+    
+                        usort($userArray, function($a, $b) {
+                            // Tách phần tên của $a và lấy phần cuối cùng
+                            $namePartsA = explode(' ', $a->name);
+                            $lastNameA = array_pop($namePartsA);  // Lưu kết quả của explode vào biến trước
+                        
+                            // Tách phần tên của $b và lấy phần cuối cùng
+                            $namePartsB = explode(' ', $b->name);
+                            $lastNameB = array_pop($namePartsB);  // Lưu kết quả của explode vào biến trước
+                        
+                            // So sánh phần tên cuối cùng
+                            if ($lastNameA === $lastNameB) {
+                                // Nếu phần cuối giống nhau, so sánh phần còn lại của tên
+                                $firstPartA = implode(' ', $namePartsA);
+                                $firstPartB = implode(' ', $namePartsB);
+                                return strcmp($firstPartA, $firstPartB);
+                            }
+                        
+                            // So sánh phần tên cuối nếu không trùng
+                            return strcmp($lastNameA, $lastNameB);
+                        });
+    
+                        $stt = 1;
+                        foreach ($userArray as $userObject) {
+                            // Truy cập và xử lý các thuộc tính của từng đối tượng trong mảng
+                            if( $userObject->score > 0){
+                                echo '<tr>
+                                <td style="color:#99cc32; text-align: center"><b>' . $stt . '</b></td>
+                                <td style="vertical-align:middle">
+                                    <a href="dash.php?q=0&username='. $userObject->username .'" style="color: black">' .  $userObject->name . '</a>
+                                </td>
+                                <td style="vertical-align:middle; text-align: center">' . $userObject->examnumber .'/' . $total .'</td>
+                                <td style="vertical-align:middle; text-align: center">'. $userObject->score .'</td>
+                                <td style="vertical-align:middle"> </tr>';
+                            } else {
+                                echo '<tr>
+                                    <td style="color:#99cc32; text-align: center"><b>' . $stt . '</b></td>
+                                    <td style="vertical-align:middle">
+                                        <a href="dash.php?q=0&username='. $userObject->username .'" style="color: black">' .  $userObject->name . '</a>
+                                    </td>
+                                    <td style="vertical-align:middle; text-align: center">Chưa làm bài</td>
+                                    <td style="vertical-align:middle; text-align: center">'. $userObject->score .'</td>
+                                    <td style="vertical-align:middle"> </tr>';
+                            }
+                            $stt++;
+                        }
+    
+                        echo '</table></div>';
+                        echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
+                        $total = ceil($total/10);;
+                        if(isset($_GET['show'])){
+                            $show = $_GET['show'];
+                        }
+                        else{
+                            $show = 1;
+                        }
+                        if($show == 1 && $total==1){
+                        }
+                        else if($show == 1 && $total!=1){
+                            $i = 1;
+                            while($i<=$total){
+                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                                $i++;
+                            }
+                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                        }
+                        else if($show != 1 && $show==$total){
+                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+    
+                            $i = 1;
+                            while($i<=$total){
+                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                                $i++;
+                            }
+                        }
+                        else{
+                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                            $i = 1;
+                            while($i<=$total){
+                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                                $i++;
+                            }
+                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                        }
+                        echo '</tr></table></div>';
+                    } else if(@$_GET['sort'] == 'score'){
+                        if(isset($_GET['show'])){
+                            $show = $_GET['show'];
+                            $showfrom = (($show-1)*10) + 1;
+                            $showtill = $showfrom + 9;
+                        }
+                        else{
+                            $show = 1;
+                            $showfrom = 1;
+                            $showtill = 10;
+                        }
+    
+                        echo '<div class="panel title">
+                        <table class="table table-striped title1" >
+                        <tr>
+                            <td style="vertical-align:middle; text-align: center"><b>STT</b></td>
+                            <td style="vertical-align:middle; text-align: center">
+                                <a href="dash.php?q=0&sort=name" style="color: black; font-weight: bold">Tên học viên</a>
+                            </td>
+                            <td style="vertical-align:middle; text-align: center"><b>Số bài đã làm</b></td>
+                            <td style="vertical-align:middle; text-align: center">
+                                <a href="dash.php?q=0&sort=score" style="color: black; font-weight: bold">Tổng điểm trung bình</a>
+                            </td>
+                        </tr>';
+    
+                        $q1 = mysqli_query($con, "SELECT * FROM quiz") or die('Error223');
+                        $total = mysqli_num_rows($q1);
+    
+                        $q = mysqli_query($con, "SELECT * FROM user LIMIT ".($showfrom-1).",10") or die('Error223');
+    
+                        // Khởi tạo mảng để chứa các đối tượng
+                        $userArray = array();
+    
+                        // Duyệt qua từng dòng kết quả và thêm vào mảng
+                        while($row = mysqli_fetch_assoc($q)) {
+                            // Tạo một đối tượng mới với các thuộc tính name, username, examnumber, score
+                            $userObject = new stdClass();
+                            $userObject->name = $row['name'];
+                            $userObject->username = $row['username'];
+                            // Tìm số lượng bài thi đã làm
+                            $q2 = mysqli_query($con, "SELECT * FROM history WHERE username ='" . $userObject->username . "'") or die('Error223');
+                                $c = 0;
+                                $sum = 0;
+                                while ($row2 = mysqli_fetch_array($q2)){
+                                    $totalmark = $row2['totalscore'];
+                                    if($totalmark >= 10){
+                                        $totalmark = 10;
+                                    }
+                                    $sum += $totalmark;
+                                    $c++;
+                                }
+    
+                                $userObject->examnumber = $c;
+                                
+                                if($c > 0){
+                                    $userObject->score = round($sum/$c, 2);           
+                                } else{
+                                    $userObject->score = 0;
+                                }
+                            // Thêm đối tượng vào mảng
+                            $userArray[] = $userObject;
+                        }
+    
+                        usort($userArray, function($a, $b) {
+                            // Compare scores in descending order
+                            return $b->score <=> $a->score;
+                        });
+    
+                        $stt = 1;
+                        foreach ($userArray as $userObject) {
+                            // Truy cập và xử lý các thuộc tính của từng đối tượng trong mảng
+                            if( $userObject->score > 0){
+                                echo '<tr>
+                                <td style="color:#99cc32; text-align: center"><b>' . $stt . '</b></td>
+                                <td style="vertical-align:middle">
+                                    <a href="dash.php?q=0&username='. $userObject->username .'" style="color: black">' .  $userObject->name . '</a>
+                                </td>
+                                <td style="vertical-align:middle; text-align: center">' . $userObject->examnumber .'/' . $total .'</td>
+                                <td style="vertical-align:middle; text-align: center">'. $userObject->score .'</td>
+                                <td style="vertical-align:middle"> </tr>';
+                            } else {
+                                echo '<tr>
+                                    <td style="color:#99cc32; text-align: center"><b>' . $stt . '</b></td>
+                                    <td style="vertical-align:middle">
+                                        <a href="dash.php?q=0&username='. $userObject->username .'" style="color: black">' .  $userObject->name . '</a>
+                                    </td>
+                                    <td style="vertical-align:middle; text-align: center">Chưa làm bài</td>
+                                    <td style="vertical-align:middle; text-align: center">'. $userObject->score .'</td>
+                                    <td style="vertical-align:middle"> </tr>';
+                            }
+                            $stt++;
+                        }
+    
+                        echo '</table></div>';
+                        echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
+                        $total = ceil($total/10);;
+                        if(isset($_GET['show'])){
+                            $show = $_GET['show'];
+                        }
+                        else{
+                            $show = 1;
+                        }
+                        if($show == 1 && $total==1){
+                        }
+                        else if($show == 1 && $total!=1){
+                            $i = 1;
+                            while($i<=$total){
+                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                                $i++;
+                            }
+                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                        }
+                        else if($show != 1 && $show==$total){
+                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+    
+                            $i = 1;
+                            while($i<=$total){
+                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                                $i++;
+                            }
+                        }
+                        else{
+                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                            $i = 1;
+                            while($i<=$total){
+                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                                $i++;
+                            }
+                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                        }
+                        echo '</tr></table></div>';
+                    }
                 }
 
                 if (@$_GET['q'] == 'result' && @$_GET['eid'] && @$_GET['username']) {

@@ -88,13 +88,14 @@ if (isset($_SESSION['key'])) {
     if (@$_GET['q'] == 'addquiz' && $_SESSION['key'] == '54585c506829293a2d4c3b68543b316e2e7a2d277858545a36362e5f39') {
         $name    = $_POST['name'];
         $name    = ucwords(strtolower($name));
+        $date    = $_POST['date'];
         $choicequestion   = $_POST['choicequestion'];
         $fillquestion = $_POST['fillquestion'];
         $total = $choicequestion + $fillquestion;
         $time    = $_POST['time'];
         $status  = "disabled";
         $id      = uniqid();
-        $q3      = mysqli_query($con, "INSERT INTO quiz VALUES(NULL,'$id','$name','$total', '$choicequestion', '$fillquestion', '$time', 'NOW()','$status')");
+        $q3      = mysqli_query($con, "INSERT INTO quiz VALUES(NULL,'$id','$name','$total', '$choicequestion', '$fillquestion', '$time', 'NOW()','$status', '$date')");
         header("location:dash.php?q=4&step=2&eid=$id&n=$choicequestion&n1=$fillquestion");
     }
 }
