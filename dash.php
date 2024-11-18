@@ -1152,10 +1152,31 @@
                             $userArray[] = $userObject;
                         }
     
-                        usort($userArray, function($a, $b) {
+                        usort($userArray, function ($a, $b) {
                             // Compare scores in descending order
-                            return $b->score <=> $a->score;
-                        });
+                            if ($a->score !== $b->score) {
+                                return $b->score <=> $a->score;
+                            }
+                        
+                            // If scores are equal, compare names
+                            // Extract the last name of $a
+                            $namePartsA = explode(' ', $a->name);
+                            $lastNameA = array_pop($namePartsA);
+                        
+                            // Extract the last name of $b
+                            $namePartsB = explode(' ', $b->name);
+                            $lastNameB = array_pop($namePartsB);
+                        
+                            // Compare the last names
+                            if ($lastNameA !== $lastNameB) {
+                                return $lastNameA <=> $lastNameB;
+                            }
+                        
+                            // If last names are equal, compare the remaining part of the name
+                            $firstPartA = implode(' ', $namePartsA);
+                            $firstPartB = implode(' ', $namePartsB);
+                            return $firstPartA <=> $firstPartB;
+                        });                        
     
                         $stt = 1;
                         foreach ($userArray as $userObject) {

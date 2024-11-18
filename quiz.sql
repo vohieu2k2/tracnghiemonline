@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 18, 2024 lúc 03:06 AM
+-- Thời gian đã tạo: Th10 31, 2024 lúc 01:50 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, 'toannn', '1111');
+(1, 'muki', '1111');
 
 -- --------------------------------------------------------
 
@@ -57,6 +57,14 @@ CREATE TABLE `answer` (
 --
 
 INSERT INTO `answer` (`id`, `qid`, `ansid`) VALUES
+(4, '5b85857d00f34', '5b85857d0ab77'),
+(5, '5b85857d333f0', '5b85857d391b2'),
+(6, '5b85857d59559', '5b85857d69efd'),
+(7, '5b85857d917d6', '5b85857d97980'),
+(8, '5b85857db810f', '5b85857dbd701'),
+(81, '670b56407eef3', '670b56407f44b'),
+(82, '670b564080d9e', '670b56408113c'),
+(83, '670b5640824b7', '670b56408297c'),
 (84, '670cc8e48f30f', '670cc8e48fac8'),
 (85, '670cc8e491660', '670cc8e4919b9'),
 (86, '670cc8e492c5a', '670cc8e49302a'),
@@ -67,12 +75,22 @@ INSERT INTO `answer` (`id`, `qid`, `ansid`) VALUES
 (96, '670e749be32b9', '670e749be36e3'),
 (97, '670e749be49a1', '670e749be4d09'),
 (98, '670e749be5ee5', '670e749be628c'),
+(99, '670e9f8c3af58', '670e9f8c3b42d'),
+(100, '670e9f8c3d15b', '670e9f8c3d53c'),
+(101, '670e9f8c3e50c', '670e9f8c3e7d5'),
+(102, '670e9f8c3f581', '670e9f8c3f896'),
+(103, '670e9f8c409b5', '670e9f8c40ca1'),
 (116, '6717d3da57ab4', '6717d3da580fc'),
 (117, '6717d3da59f38', '6717d3da5a6ad'),
 (118, '6717d3da5bbfa', '6717d3da5c0ff'),
 (119, '6719135ca963b', '6719135ca9f07'),
 (120, '6719135caf562', '6719135cafdd9'),
-(121, '6719135cb2817', '6719135cb30f2');
+(121, '6719135cb2817', '6719135cb30f2'),
+(122, '6721defb07138', '6721defb09bef'),
+(123, '6721defb10054', '6721defb106c5'),
+(124, '6721defb12279', '6721defb126c5'),
+(125, '6721defb1421b', '6721defb1460c'),
+(126, '6721defb15a62', '6721defb15e70');
 
 -- --------------------------------------------------------
 
@@ -89,6 +107,13 @@ CREATE TABLE `feedback` (
   `date` date NOT NULL,
   `time` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `name`, `username`, `subject`, `feedback`, `date`, `time`) VALUES
+('5b86784504039', 'pravin', 'fyvgh@vgyvy.in', 'ytiu', 'yty', '2018-08-29', '03:41:09pm');
 
 -- --------------------------------------------------------
 
@@ -116,7 +141,11 @@ INSERT INTO `fill_questions` (`id`, `eid`, `qid`, `qns`, `answer`, `sn`) VALUES
 (11, '6717d3a7c09e9', '6717d3da5dbcb', '1234567', '1234567', 7),
 (12, '6719130f5158b', '6719135cb5ca2', 'abc', 'lớp b14d52', 4),
 (13, '6719130f5158b', '6719135cb6383', 'Phát hiện, ..., xử lý mã độc', 'phân tích', 5),
-(14, '6719130f5158b', '6719135cb6a1e', 'Phát hiện, phân tích, ... mã độc', 'xử lý', 6);
+(14, '6719130f5158b', '6719135cb6a1e', 'Phát hiện, phân tích, ... mã độc', 'xử lý', 6),
+(15, '6721de906c19e', '6721defb17655', 'Phát hiện, ..., xử lý mã độc', 'phân tích', 6),
+(16, '6721de906c19e', '6721defb183d9', '..., phân tích, xử lý mã độc', 'phát hiện', 7),
+(17, '6721de906c19e', '6721defb187c6', 'Phát hiện, phân tích, ... mã độc', 'xử lý', 8),
+(18, '6721de906c19e', '6721defb18bf4', 'abc', 'defdf', 9);
 
 -- --------------------------------------------------------
 
@@ -145,8 +174,19 @@ CREATE TABLE `history` (
 --
 
 INSERT INTO `history` (`id`, `username`, `eid`, `score`, `level`, `correct`, `wrong`, `date`, `timestamp`, `status`, `score_updated`, `plusscore`, `totalscore`) VALUES
-(61, 'a', '6719130f5158b', 5.00, 6, 3, 3, '2024-11-17 12:54:00', 1731848015, 'finished', 'true', 0.00, 5.00),
-(62, 'b', '6717d3a7c09e9', 7.14, 7, 5, 2, '2024-11-17 12:54:51', 1731848065, 'finished', 'true', 0.00, 7.14);
+(1, 'pravin', '5b85847bbe794', 3.00, 5, 2, 3, '2024-10-13 02:58:57', 1535538968, 'finished', 'true', 3.00, 6.00),
+(2, 'mugunth', '5b85847bbe794', 6.00, 5, 4, 1, '2024-10-17 07:01:13', 1535539122, 'finished', 'true', 3.00, 9.00),
+(30, 'vohieu', '5b85847bbe794', 4.00, 3, 2, 0, '2024-10-15 16:58:10', 1728826273, 'finished', 'true', 3.00, 7.00),
+(38, 'vohieu', '670b561a8137a', 10.00, 3, 3, 0, '2024-10-15 16:58:04', 1728887414, 'finished', 'true', -1.00, 9.00),
+(45, 'vohieu', '670e7468b24bd', 4.00, 5, 2, 3, '2024-10-15 16:58:18', 1729010651, 'finished', 'true', 3.00, 7.00),
+(46, 'vohieu2002', '5b85847bbe794', 6.00, 5, 3, 2, '2024-10-21 13:06:56', 1729011073, 'finished', 'true', 1.00, 7.00),
+(47, 'vohieu', '670e9f53856a4', 4.00, 5, 2, 3, '2024-10-15 17:00:39', 1729011612, 'finished', 'true', 0.00, 4.00),
+(48, 'vohieu2002', '670e9f53856a4', 6.00, 4, 3, 2, '2024-10-16 03:03:21', 1729047598, 'finished', 'true', 0.00, 6.00),
+(49, 'vohieu2002', '670b561a8137a', 3.33, 3, 1, 2, '2024-10-21 13:12:50', 1729047960, 'finished', 'true', 0.00, 3.33),
+(52, 'vohieu', '6717d3a7c09e9', 5.71, 7, 4, 3, '2024-10-22 16:34:10', 1729614824, 'finished', 'true', 0.00, 5.71),
+(58, 'vohieu', '6719130f5158b', 6.67, 6, 4, 2, '2024-10-30 06:02:26', 1730268117, 'finished', 'true', 0.00, 6.67),
+(59, 'vohieu2002', '6721de906c19e', 5.56, 9, 5, 4, '2024-10-30 08:08:03', 1730274418, 'finished', 'true', 0.00, 5.56),
+(60, 'vohieu', '6721de906c19e', 0.00, 1, 0, 1, '2024-10-30 08:10:00', 1730275735, 'finished', 'true', 0.00, 0.00);
 
 -- --------------------------------------------------------
 
@@ -166,6 +206,38 @@ CREATE TABLE `options` (
 --
 
 INSERT INTO `options` (`id`, `qid`, `option`, `optionid`) VALUES
+(13, '5b85857d00f34', ' Hello World!Hello World!', '5b85857d0ab77'),
+(14, '5b85857d00f34', ' Hello World! * 2', '5b85857d0af5f'),
+(15, '5b85857d00f34', 'Hello World!', '5b85857d0b347'),
+(16, '5b85857d00f34', 'None of the above.', '5b85857d0b72f'),
+(17, '5b85857d333f0', '( \'abcd\', 786 , 2.23, \'john\', 70.2 )', '5b85857d389e2'),
+(18, '5b85857d333f0', 'abcd', '5b85857d38dca'),
+(19, '5b85857d333f0', '(786, 2.23)', '5b85857d391b2'),
+(20, '5b85857d333f0', 'None of the above.', '5b85857d3959a'),
+(21, '5b85857d59559', 'int(x [,base])', '5b85857d69b15'),
+(22, '5b85857d59559', 'long(x [,base] )', '5b85857d69efd'),
+(23, '5b85857d59559', 'float(x)', '5b85857d6a2e5'),
+(24, '5b85857d59559', 'str(x)', '5b85857d6a6cd'),
+(25, '5b85857d917d6', 'unichr(x)', '5b85857d97980'),
+(26, '5b85857d917d6', 'ord(x)', '5b85857d97d68'),
+(27, '5b85857d917d6', 'hex(x)', '5b85857d98150'),
+(28, '5b85857d917d6', 'oct(x)', '5b85857d98538'),
+(29, '5b85857db810f', 'choice(seq)', '5b85857dbd701'),
+(30, '5b85857db810f', 'randrange ([start,] stop [,step])', '5b85857dbdae9'),
+(31, '5b85857db810f', 'random()', '5b85857dbded1'),
+(32, '5b85857db810f', 'seed([x])', '5b85857dbe2b9'),
+(321, '670b56407eef3', 'a', '670b56407f44b'),
+(322, '670b56407eef3', 'b', '670b56407f44f'),
+(323, '670b56407eef3', 'c', '670b56407f450'),
+(324, '670b56407eef3', 'd', '670b56407f451'),
+(325, '670b564080d9e', 'abc', '670b56408113c'),
+(326, '670b564080d9e', 'adb', '670b56408113e'),
+(327, '670b564080d9e', 'sds', '670b56408113f'),
+(328, '670b564080d9e', 'ads', '670b564081140'),
+(329, '670b5640824b7', 'dscf', '670b564082977'),
+(330, '670b5640824b7', 'abcd', '670b56408297c'),
+(331, '670b5640824b7', 'ádas', '670b56408297d'),
+(332, '670b5640824b7', 'sáddasa', '670b56408297e'),
 (333, '670cc8e48f30f', 'A', '670cc8e48fac8'),
 (334, '670cc8e48f30f', 'B', '670cc8e48facc'),
 (335, '670cc8e48f30f', 'c', '670cc8e48facd'),
@@ -206,6 +278,26 @@ INSERT INTO `options` (`id`, `qid`, `option`, `optionid`) VALUES
 (390, '670e749be5ee5', 'abd', '670e749be628f'),
 (391, '670e749be5ee5', 'aef', '670e749be6290'),
 (392, '670e749be5ee5', 'ade', '670e749be6291'),
+(393, '670e9f8c3af58', 'a', '670e9f8c3b42d'),
+(394, '670e9f8c3af58', 'b', '670e9f8c3b431'),
+(395, '670e9f8c3af58', 'c', '670e9f8c3b432'),
+(396, '670e9f8c3af58', 'd', '670e9f8c3b433'),
+(397, '670e9f8c3d15b', 'a', '670e9f8c3d53a'),
+(398, '670e9f8c3d15b', 'b', '670e9f8c3d53c'),
+(399, '670e9f8c3d15b', 'c', '670e9f8c3d53d'),
+(400, '670e9f8c3d15b', 'd', '670e9f8c3d53e'),
+(401, '670e9f8c3e50c', 'abd', '670e9f8c3e7d2'),
+(402, '670e9f8c3e50c', 'ac', '670e9f8c3e7d4'),
+(403, '670e9f8c3e50c', 'ab', '670e9f8c3e7d5'),
+(404, '670e9f8c3e50c', 'ae', '670e9f8c3e7d6'),
+(405, '670e9f8c3f581', 'agd', '670e9f8c3f894'),
+(406, '670e9f8c3f581', 'abc', '670e9f8c3f896'),
+(407, '670e9f8c3f581', 'asd', '670e9f8c3f897'),
+(408, '670e9f8c3f581', 'ádsd', '670e9f8c3f898'),
+(409, '670e9f8c409b5', 'adbc', '670e9f8c40c9a'),
+(410, '670e9f8c409b5', 'adjf', '670e9f8c40ca0'),
+(411, '670e9f8c409b5', 'abcd', '670e9f8c40ca1'),
+(412, '670e9f8c409b5', 'ákfj', '670e9f8c40ca2'),
 (461, '6717d3da57ab4', 'a', '6717d3da580fc'),
 (462, '6717d3da57ab4', 'b', '6717d3da58102'),
 (463, '6717d3da57ab4', 'c', '6717d3da58103'),
@@ -229,7 +321,27 @@ INSERT INTO `options` (`id`, `qid`, `option`, `optionid`) VALUES
 (481, '6719135cb2817', 'a', '6719135cb30ef'),
 (482, '6719135cb2817', 'b', '6719135cb30f1'),
 (483, '6719135cb2817', 'c', '6719135cb30f2'),
-(484, '6719135cb2817', 'd', '6719135cb30f3');
+(484, '6719135cb2817', 'd', '6719135cb30f3'),
+(485, '6721defb07138', 'a', '6721defb09bef'),
+(486, '6721defb07138', 'b', '6721defb09bf2'),
+(487, '6721defb07138', 'c', '6721defb09bf3'),
+(488, '6721defb07138', 'd', '6721defb09bf4'),
+(489, '6721defb10054', 'b', '6721defb106c5'),
+(490, '6721defb10054', 'c', '6721defb106c6'),
+(491, '6721defb10054', 'd', '6721defb106c7'),
+(492, '6721defb10054', 'a', '6721defb106c8'),
+(493, '6721defb12279', 'a', '6721defb126c3'),
+(494, '6721defb12279', 'b', '6721defb126c4'),
+(495, '6721defb12279', 'c', '6721defb126c5'),
+(496, '6721defb12279', 'd', '6721defb126c6'),
+(497, '6721defb1421b', 'a', '6721defb14609'),
+(498, '6721defb1421b', 'v', '6721defb1460a'),
+(499, '6721defb1421b', 'c', '6721defb1460b'),
+(500, '6721defb1421b', 'd', '6721defb1460c'),
+(501, '6721defb15a62', 'asc', '6721defb15e70'),
+(502, '6721defb15a62', 'asd', '6721defb15e71'),
+(503, '6721defb15a62', 'asf', '6721defb15e72'),
+(504, '6721defb15a62', 'asdf', '6721defb15e73');
 
 -- --------------------------------------------------------
 
@@ -251,6 +363,14 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `eid`, `qid`, `qns`, `choice`, `sn`) VALUES
+(4, '5b85847bbe794', '5b85857d00f34', 'What is the output of print str * 2 if str = \'Hello World!\'?', 4, 1),
+(5, '5b85847bbe794', '5b85857d333f0', 'What is the output of print tuple[1:3] if tuple = ( \'abcd\', 786 , 2.23, \'john\', 70.2 )?', 4, 2),
+(6, '5b85847bbe794', '5b85857d59559', 'Which of the following function convert a string to a long in python?', 4, 3),
+(7, '5b85847bbe794', '5b85857d917d6', 'Which of the following function convert an integer to an unicode character in python?', 4, 4),
+(8, '5b85847bbe794', '5b85857db810f', 'Which of the following function returns a random item from a list, tuple, or string?', 4, 5),
+(81, '670b561a8137a', '670b56407eef3', 'a', 4, 1),
+(82, '670b561a8137a', '670b564080d9e', 'abc', 4, 2),
+(83, '670b561a8137a', '670b5640824b7', 'abcd', 4, 3),
 (84, '670cc8a2d17f8', '670cc8e48f30f', 'A', 4, 1),
 (85, '670cc8a2d17f8', '670cc8e491660', 'B', 4, 2),
 (86, '670cc8a2d17f8', '670cc8e492c5a', 'C', 4, 3),
@@ -261,12 +381,22 @@ INSERT INTO `questions` (`id`, `eid`, `qid`, `qns`, `choice`, `sn`) VALUES
 (96, '670e7468b24bd', '670e749be32b9', 'c', 4, 3),
 (97, '670e7468b24bd', '670e749be49a1', 'd', 4, 4),
 (98, '670e7468b24bd', '670e749be5ee5', 'abc', 4, 5),
+(99, '670e9f53856a4', '670e9f8c3af58', 'A', 4, 1),
+(100, '670e9f53856a4', '670e9f8c3d15b', 'B', 4, 2),
+(101, '670e9f53856a4', '670e9f8c3e50c', 'ab', 4, 3),
+(102, '670e9f53856a4', '670e9f8c3f581', 'abc', 4, 4),
+(103, '670e9f53856a4', '670e9f8c409b5', 'abcd', 4, 5),
 (116, '6717d3a7c09e9', '6717d3da57ab4', 'A', 4, 1),
 (117, '6717d3a7c09e9', '6717d3da59f38', 'b', 4, 2),
 (118, '6717d3a7c09e9', '6717d3da5bbfa', 'c', 4, 3),
 (119, '6719130f5158b', '6719135ca963b', 'a', 4, 1),
 (120, '6719130f5158b', '6719135caf562', 'b', 4, 2),
-(121, '6719130f5158b', '6719135cb2817', 'c', 4, 3);
+(121, '6719130f5158b', '6719135cb2817', 'c', 4, 3),
+(122, '6721de906c19e', '6721defb07138', 'a', 4, 1),
+(123, '6721de906c19e', '6721defb10054', 'b', 4, 2),
+(124, '6721de906c19e', '6721defb12279', 'c', 4, 3),
+(125, '6721de906c19e', '6721defb1421b', 'd', 4, 4),
+(126, '6721de906c19e', '6721defb15a62', 'asc', 4, 5);
 
 -- --------------------------------------------------------
 
@@ -283,19 +413,22 @@ CREATE TABLE `quiz` (
   `fillquestion` int(11) DEFAULT NULL,
   `time` bigint(20) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `status` varchar(10) DEFAULT NULL,
-  `examdate` text DEFAULT NULL
+  `status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `quiz`
 --
 
-INSERT INTO `quiz` (`id`, `eid`, `title`, `total`, `choicequestion`, `fillquestion`, `time`, `date`, `status`, `examdate`) VALUES
-(17, '670cc8a2d17f8', 'Testdethi', 5, 5, 0, 10, '2024-10-22 14:03:55', 'enabled', NULL),
-(23, '670e7468b24bd', 'Testdethi', 5, 5, 0, 60, '2024-10-22 13:19:15', 'enabled', NULL),
-(28, '6717d3a7c09e9', '25/08/2024', 7, 3, 4, 10, '2024-11-13 08:10:30', 'enabled', '25/08/2024'),
-(29, '6719130f5158b', '23/10/2024', 6, 3, 3, 10, '2024-11-13 08:10:35', 'enabled', '23/10/2024');
+INSERT INTO `quiz` (`id`, `eid`, `title`, `total`, `choicequestion`, `fillquestion`, `time`, `date`, `status`) VALUES
+(2, '5b85847bbe794', 'Python', 5, 5, 0, 2, '2024-10-22 13:18:56', 'enabled'),
+(16, '670b561a8137a', 'Abcdef', 3, 3, 0, 5, '2024-10-22 13:19:04', 'enabled'),
+(17, '670cc8a2d17f8', 'Testdethi', 5, 5, 0, 10, '2024-10-22 14:03:55', 'enabled'),
+(23, '670e7468b24bd', 'Testdethi', 5, 5, 0, 60, '2024-10-22 13:19:15', 'enabled'),
+(24, '670e9f53856a4', 'B1', 5, 5, 0, 30, '2024-10-22 13:19:20', 'enabled'),
+(28, '6717d3a7c09e9', '25/08/2024', 7, 3, 4, 10, '2024-10-22 16:33:34', 'enabled'),
+(29, '6719130f5158b', '23/10/2024', 6, 3, 3, 10, '2024-10-23 15:16:51', 'enabled'),
+(30, '6721de906c19e', '29/10/2024', 9, 5, 4, 15, '2024-10-30 07:45:37', 'enabled');
 
 -- --------------------------------------------------------
 
@@ -345,13 +478,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `gender`, `username`, `phno`, `password`) VALUES
-(12, 'A', 'Nam', 'a', '1234567890', '0cc175b9c0f1b6a831c399e269772661'),
 (8, 'Test', 'Nữ', 'admin', '1234567890', 'e10adc3949ba59abbe56e057f20f883e'),
-(13, 'B', 'Nam', 'b', '1234567890', '92eb5ffee6ae2fec3ad71c777531578f'),
 (4, 'Kadhamburi', 'M', 'kadhu', '9887661361', 'b59c67bf196a4758191e42f76670ceba'),
 (3, 'Kiran', 'M', 'kiran', '9876543212', 'b59c67bf196a4758191e42f76670ceba'),
 (2, 'Mugunthan', 'M', 'mugunth', '9514444471', 'b59c67bf196a4758191e42f76670ceba'),
 (5, 'Pravin', 'M', 'pravin', '8769891099', 'c86da2729ab8f79d8f582e9abc469eb0'),
+(7, 'Võ Trung Hiếu', 'Nam', 'vohieu', '0899324758', 'e10adc3949ba59abbe56e057f20f883e'),
 (11, 'Võ Hiếu', 'Nam', 'vohieu2002', '1234567890', 'e10adc3949ba59abbe56e057f20f883e');
 
 -- --------------------------------------------------------
@@ -374,19 +506,65 @@ CREATE TABLE `user_answer` (
 --
 
 INSERT INTO `user_answer` (`id`, `qid`, `ans`, `correctans`, `eid`, `username`) VALUES
-(175, '6719135ca963b', '6719135ca9f07', '6719135ca9f07', '6719130f5158b', 'a'),
-(176, '6719135caf562', '6719135cafdda', '6719135cafdd9', '6719130f5158b', 'a'),
-(177, '6719135cb2817', '6719135cb30f1', '6719135cb30f2', '6719130f5158b', 'a'),
-(178, '6719135cb5ca2', 'abc', 'lớp b14d52', '6719130f5158b', 'a'),
-(179, '6719135cb6383', 'phân tích', 'phân tích', '6719130f5158b', 'a'),
-(180, '6719135cb6a1e', 'xử lý', 'xử lý', '6719130f5158b', 'a'),
-(181, '6717d3da57ab4', '6717d3da580fc', '6717d3da580fc', '6717d3a7c09e9', 'b'),
-(182, '6717d3da59f38', '6717d3da5a6ad', '6717d3da5a6ad', '6717d3a7c09e9', 'b'),
-(183, '6717d3da5bbfa', '6717d3da5c0ff', '6717d3da5c0ff', '6717d3a7c09e9', 'b'),
-(184, '6717d3da5d1cc', 'lớp b14d52', 'abc', '6717d3a7c09e9', 'b'),
-(185, '6717d3da5d4f9', '1234', '1234', '6717d3a7c09e9', 'b'),
-(186, '6717d3da5d8b7', 'ádsđfffd', 'abcdef', '6717d3a7c09e9', 'b'),
-(187, '6717d3da5dbcb', '1234567', '1234567', '6717d3a7c09e9', 'b');
+(4, '5b85857d00f34', '5b85857d0af5f', '5b85857d0ab77', '5b85847bbe794', 'pravin'),
+(5, '5b85857d333f0', '5b85857d389e2', '5b85857d391b2', '5b85847bbe794', 'pravin'),
+(6, '5b85857d59559', '5b85857d69efd', '5b85857d69efd', '5b85847bbe794', 'pravin'),
+(7, '5b85857d917d6', '5b85857d97980', '5b85857d97980', '5b85847bbe794', 'pravin'),
+(8, '5b85857db810f', '5b85857dbdae9', '5b85857dbd701', '5b85847bbe794', 'pravin'),
+(9, '5b85857d00f34', '5b85857d0ab77', '5b85857d0ab77', '5b85847bbe794', 'mugunth'),
+(10, '5b85857d333f0', '5b85857d391b2', '5b85857d391b2', '5b85847bbe794', 'mugunth'),
+(11, '5b85857d59559', '5b85857d69efd', '5b85857d69efd', '5b85847bbe794', 'mugunth'),
+(12, '5b85857d917d6', '5b85857d97980', '5b85857d97980', '5b85847bbe794', 'mugunth'),
+(13, '5b85857db810f', '5b85857dbded1', '5b85857dbd701', '5b85847bbe794', 'mugunth'),
+(60, '5b85857d00f34', '5b85857d0ab77', '5b85857d0ab77', '5b85847bbe794', 'vohieu'),
+(61, '5b85857d333f0', '5b85857d38dca', '5b85857d391b2', '5b85847bbe794', 'vohieu'),
+(62, '5b85857d59559', '5b85857d69efd', '5b85857d69efd', '5b85847bbe794', 'vohieu'),
+(63, '5b85857d917d6', '5b85857d98150', '5b85857d97980', '5b85847bbe794', 'vohieu'),
+(64, '5b85857db810f', '5b85857dbdae9', '5b85857dbd701', '5b85847bbe794', 'vohieu'),
+(75, '670b56407eef3', '670b56407f44b', '670b56407f44b', '670b561a8137a', 'vohieu'),
+(76, '670b564080d9e', '670b56408113c', '670b56408113c', '670b561a8137a', 'vohieu'),
+(77, '670b5640824b7', '670b56408297c', '670b56408297c', '670b561a8137a', 'vohieu'),
+(90, '670e749bd7883', '670e749bdb45d', '670e749bdb45d', '670e7468b24bd', 'vohieu'),
+(91, '670e749be1a0e', '670e749be1dd0', '670e749be1dd3', '670e7468b24bd', 'vohieu'),
+(92, '670e749be32b9', '670e749be36e3', '670e749be36e3', '670e7468b24bd', 'vohieu'),
+(93, '670e749be49a1', '670e749be4d07', '670e749be4d09', '670e7468b24bd', 'vohieu'),
+(94, '670e749be5ee5', '670e749be6290', '670e749be628c', '670e7468b24bd', 'vohieu'),
+(100, '670e9f8c3af58', '670e9f8c3b42d', '670e9f8c3b42d', '670e9f53856a4', 'vohieu'),
+(101, '670e9f8c3d15b', '670e9f8c3d53a', '670e9f8c3d53c', '670e9f53856a4', 'vohieu'),
+(102, '670e9f8c3e50c', '670e9f8c3e7d2', '670e9f8c3e7d5', '670e9f53856a4', 'vohieu'),
+(103, '670e9f8c3f581', '670e9f8c3f896', '670e9f8c3f896', '670e9f53856a4', 'vohieu'),
+(104, '670e9f8c409b5', '670e9f8c40c9a', '670e9f8c40ca1', '670e9f53856a4', 'vohieu'),
+(105, '670e9f8c3af58', '670e9f8c3b431', '670e9f8c3b42d', '670e9f53856a4', 'vohieu2002'),
+(106, '670e9f8c3d15b', '670e9f8c3d53d', '670e9f8c3d53c', '670e9f53856a4', 'vohieu2002'),
+(107, '670e9f8c3e50c', '670e9f8c3e7d5', '670e9f8c3e7d5', '670e9f53856a4', 'vohieu2002'),
+(108, '670e9f8c3f581', '670e9f8c3f896', '670e9f8c3f896', '670e9f53856a4', 'vohieu2002'),
+(109, '670e9f8c409b5', '670e9f8c40ca1', '670e9f8c40ca1', '670e9f53856a4', 'vohieu2002'),
+(110, '670b56407eef3', '670b56407f44b', '670b56407f44b', '670b561a8137a', 'vohieu2002'),
+(111, '670b564080d9e', '670b56408113e', '670b56408113c', '670b561a8137a', 'vohieu2002'),
+(112, '670b5640824b7', '670b56408297e', '670b56408297c', '670b561a8137a', 'vohieu2002'),
+(126, '6717d3da57ab4', '6717d3da580fc', '6717d3da580fc', '6717d3a7c09e9', 'vohieu'),
+(127, '6717d3da59f38', '6717d3da5a6a8', '6717d3da5a6ad', '6717d3a7c09e9', 'vohieu'),
+(128, '6717d3da5bbfa', '6717d3da5c0fe', '6717d3da5c0ff', '6717d3a7c09e9', 'vohieu'),
+(129, '6717d3da5d1cc', 'abc', 'abc', '6717d3a7c09e9', 'vohieu'),
+(130, '6717d3da5d4f9', '1234', '1234', '6717d3a7c09e9', 'vohieu'),
+(131, '6717d3da5d8b7', 'abcdef', 'abcdef', '6717d3a7c09e9', 'vohieu'),
+(132, '6717d3da5dbcb', '123', '1234567', '6717d3a7c09e9', 'vohieu'),
+(159, '6719135ca963b', '6719135ca9f0c', '6719135ca9f07', '6719130f5158b', 'vohieu'),
+(160, '6719135caf562', '6719135cafdd6', '6719135cafdd9', '6719130f5158b', 'vohieu'),
+(161, '6719135cb2817', '6719135cb30f2', '6719135cb30f2', '6719130f5158b', 'vohieu'),
+(162, '6719135cb5ca2', 'lớp b14d52', 'lớp b14d52', '6719130f5158b', 'vohieu'),
+(163, '6719135cb6383', 'phân tích', 'phân tích', '6719130f5158b', 'vohieu'),
+(164, '6719135cb6a1e', 'xử lý', 'xử lý', '6719130f5158b', 'vohieu'),
+(165, '6721defb07138', '6721defb09bf2', '6721defb09bef', '6721de906c19e', 'vohieu2002'),
+(166, '6721defb10054', '6721defb106c6', '6721defb106c5', '6721de906c19e', 'vohieu2002'),
+(167, '6721defb12279', '6721defb126c5', '6721defb126c5', '6721de906c19e', 'vohieu2002'),
+(168, '6721defb1421b', '6721defb1460a', '6721defb1460c', '6721de906c19e', 'vohieu2002'),
+(169, '6721defb15a62', '6721defb15e70', '6721defb15e70', '6721de906c19e', 'vohieu2002'),
+(170, '6721defb17655', 'phân tích', 'phân tích', '6721de906c19e', 'vohieu2002'),
+(171, '6721defb183d9', 'phát hiện', 'phát hiện', '6721de906c19e', 'vohieu2002'),
+(172, '6721defb187c6', 'xử lý', 'xử lý', '6721de906c19e', 'vohieu2002'),
+(173, '6721defb18bf4', 'cbd', 'defdf', '6721de906c19e', 'vohieu2002'),
+(174, '6721defb07138', '6721defb09bf2', '6721defb09bef', '6721de906c19e', 'vohieu');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -469,13 +647,13 @@ ALTER TABLE `answer`
 -- AUTO_INCREMENT cho bảng `fill_questions`
 --
 ALTER TABLE `fill_questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT cho bảng `options`
@@ -493,19 +671,19 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT cho bảng `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `user_answer`
 --
 ALTER TABLE `user_answer`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
