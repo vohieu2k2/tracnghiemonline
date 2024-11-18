@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 17, 2024 lúc 01:47 PM
+-- Thời gian đã tạo: Th10 18, 2024 lúc 03:06 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -139,6 +139,14 @@ CREATE TABLE `history` (
   `plusscore` decimal(4,2) DEFAULT NULL,
   `totalscore` decimal(4,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `history`
+--
+
+INSERT INTO `history` (`id`, `username`, `eid`, `score`, `level`, `correct`, `wrong`, `date`, `timestamp`, `status`, `score_updated`, `plusscore`, `totalscore`) VALUES
+(61, 'a', '6719130f5158b', 5.00, 6, 3, 3, '2024-11-17 12:54:00', 1731848015, 'finished', 'true', 0.00, 5.00),
+(62, 'b', '6717d3a7c09e9', 7.14, 7, 5, 2, '2024-11-17 12:54:51', 1731848065, 'finished', 'true', 0.00, 7.14);
 
 -- --------------------------------------------------------
 
@@ -337,7 +345,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `gender`, `username`, `phno`, `password`) VALUES
+(12, 'A', 'Nam', 'a', '1234567890', '0cc175b9c0f1b6a831c399e269772661'),
 (8, 'Test', 'Nữ', 'admin', '1234567890', 'e10adc3949ba59abbe56e057f20f883e'),
+(13, 'B', 'Nam', 'b', '1234567890', '92eb5ffee6ae2fec3ad71c777531578f'),
 (4, 'Kadhamburi', 'M', 'kadhu', '9887661361', 'b59c67bf196a4758191e42f76670ceba'),
 (3, 'Kiran', 'M', 'kiran', '9876543212', 'b59c67bf196a4758191e42f76670ceba'),
 (2, 'Mugunthan', 'M', 'mugunth', '9514444471', 'b59c67bf196a4758191e42f76670ceba'),
@@ -358,6 +368,25 @@ CREATE TABLE `user_answer` (
   `eid` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `user_answer`
+--
+
+INSERT INTO `user_answer` (`id`, `qid`, `ans`, `correctans`, `eid`, `username`) VALUES
+(175, '6719135ca963b', '6719135ca9f07', '6719135ca9f07', '6719130f5158b', 'a'),
+(176, '6719135caf562', '6719135cafdda', '6719135cafdd9', '6719130f5158b', 'a'),
+(177, '6719135cb2817', '6719135cb30f1', '6719135cb30f2', '6719130f5158b', 'a'),
+(178, '6719135cb5ca2', 'abc', 'lớp b14d52', '6719130f5158b', 'a'),
+(179, '6719135cb6383', 'phân tích', 'phân tích', '6719130f5158b', 'a'),
+(180, '6719135cb6a1e', 'xử lý', 'xử lý', '6719130f5158b', 'a'),
+(181, '6717d3da57ab4', '6717d3da580fc', '6717d3da580fc', '6717d3a7c09e9', 'b'),
+(182, '6717d3da59f38', '6717d3da5a6ad', '6717d3da5a6ad', '6717d3a7c09e9', 'b'),
+(183, '6717d3da5bbfa', '6717d3da5c0ff', '6717d3da5c0ff', '6717d3a7c09e9', 'b'),
+(184, '6717d3da5d1cc', 'lớp b14d52', 'abc', '6717d3a7c09e9', 'b'),
+(185, '6717d3da5d4f9', '1234', '1234', '6717d3a7c09e9', 'b'),
+(186, '6717d3da5d8b7', 'ádsđfffd', 'abcdef', '6717d3a7c09e9', 'b'),
+(187, '6717d3da5dbcb', '1234567', '1234567', '6717d3a7c09e9', 'b');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -440,13 +469,13 @@ ALTER TABLE `answer`
 -- AUTO_INCREMENT cho bảng `fill_questions`
 --
 ALTER TABLE `fill_questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT cho bảng `options`
@@ -464,19 +493,19 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT cho bảng `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `user_answer`
 --
 ALTER TABLE `user_answer`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

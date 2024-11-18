@@ -151,6 +151,7 @@ if (isset($_SESSION['key'])) {
             $qid  = uniqid();
             $qns  = addslashes($_POST['qns' . $i]);
             $ans = strtolower(addslashes($_POST['ans' . $i]));
+            $ans = preg_replace('/\s+/', ' ', trim($ans));
             $q3   = mysqli_query($con, "INSERT INTO fill_questions VALUES  (NULL,'$eid','$qid','$qns', '$ans' , '$i')") or die();
         }
         
@@ -338,6 +339,7 @@ if (@$_GET['q'] == 'quiz' && @$_GET['step'] == 2 && isset($_SESSION['6e447159425
     //Câu hỏi điền từ
     } else if($sn > $choice){
         $ans = strtolower($ans);
+        $ans = preg_replace('/\s+/', ' ', trim($ans));
 
         $q = mysqli_query($con, "SELECT * FROM history WHERE username='$username' AND eid='$_GET[eid]' ") or die('Error197');
         if (mysqli_num_rows($q) > 0) {
@@ -365,8 +367,9 @@ if (@$_GET['q'] == 'quiz' && @$_GET['step'] == 2 && isset($_SESSION['6e447159425
             $q = mysqli_query($con, "SELECT * FROM fill_questions WHERE qid='$qid' ");
             while ($row = mysqli_fetch_array($q)) {
                 $ansid = strtolower($row['answer']);
-
+                $ansid = preg_replace('/\s+/', ' ', trim($ansid));
             }
+
             // Đưa câu tl mới vào
             $q = mysqli_query($con, "SELECT * FROM user_answer WHERE username='$_SESSION[username]' AND eid='$_GET[eid]' AND qid='$qid' ") or die('Error1977');
             if (mysqli_num_rows($q) != 0) {
