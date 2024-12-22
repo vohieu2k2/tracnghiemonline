@@ -165,7 +165,13 @@
                             <td style="vertical-align:middle">' . $total . '</td>
                             <td style="vertical-align:middle">' . $time . '&nbsp;phút</td>
                             <td style="vertical-align:middle">Kích hoạt</td>
-                            <td style="vertical-align:middle"><b><a href="update.php?deidquiz=' . $eid . '" class="btn logb" style="color:#FFFFFF;background:#ff0000;font-size:12px;padding:5px;">&nbsp;<span><b>Đóng bài thi</b></span></a></b></td></tr>';
+                            <td style="vertical-align:middle">
+                                <b>
+                                    <a href="update.php?deidquiz=' . $eid . '" class="btn logb" style="color:#FFFFFF;background:#ff0000;font-size:12px;padding:5px;">&nbsp;<span><b>Đóng bài thi</b></span></a>
+                                    <a href="dash.php?q=edit&eid=' . $eid . '" class="btn logb" style="color:#FFFFFF;background:#1E90FF;font-size:12px;padding:5px;">&nbsp;<span><b>Sửa bài thi</b></span></a>
+                                </b>
+                            </td>
+                            </tr>';
                         } else {
                             echo '<tr style="text-align: center">
                             <td style="vertical-align:middle">' . $c++ . '</td>
@@ -173,7 +179,13 @@
                             <td style="vertical-align:middle">' . $total . '</td>
                             <td style="vertical-align:middle">' . $time . '&nbsp;phút</td>
                             <td style="vertical-align:middle">Chưa kích hoạt</td>
-                            <td style="vertical-align:middle"><b><a href="update.php?eeidquiz=' . $eid . '" class="btn logb" style="color:#FFFFFF;background:darkgreen;font-size:12px;padding:5px;">&nbsp;<span><b>Mở bài thi</b></span></a></b></td></tr>';
+                            <td style="vertical-align:middle">
+                                <b>
+                                    <a href="update.php?eeidquiz=' . $eid . '" class="btn logb" style="color:#FFFFFF;background:darkgreen;font-size:12px;padding:5px;">&nbsp;<span><b>Mở bài thi</b></span></a>
+                                    <a href="dash.php?q=edit&eid=' . $eid . '" class="btn logb" style="color:#FFFFFF;background:#1E90FF;font-size:12px;padding:5px;">&nbsp;<span><b>Sửa bài thi</b></span></a>
+                                </b>
+                            </td>
+                            </tr>';
 
                         }
                     }
@@ -1244,6 +1256,7 @@
                     }
                 }
 
+                //Xem kết quả
                 if (@$_GET['q'] == 'result' && @$_GET['eid'] && @$_GET['username']) {
                     $eid = @$_GET['eid'];
                     $username = @$_GET['username'];
@@ -1376,9 +1389,92 @@
                         die("Lỗi!!!");
                     }
                 }
+
+                if(@$_GET['q'] == 'edit' && @$_GET['eid']){
+                    // lấy eid
+                    $eid = @$_GET['eid'];
+                    
+                    // Lấy danh sách câu hỏi từ bảng questions
+                    $q1 = mysqli_query($con, "SELECT * FROM questions WHERE eid='$eid'") or die('Error khi truy vấn bảng questions');
+
+                    // Hiển thị các câu hỏi và đáp án
+                    echo '<form method="POST" action="update.php?q=edit">'; // action cập nhật tất cả câu hỏi
+
+                    while ($row = mysqli_fetch_assoc($q1)) {
+                        $qid = $row['qid'];
+                            echo '<div class="question-block">';
+    
+                        // Hiển thị câu hỏi hiện tại
+                        echo '<b>Câu hỏi ' . $row['sn'] . ':</b> <textarea name="qns_' . $row['qid'] . '" class="form-control">' . $row['qns'] . '</textarea><br />';
+    
+                        // Hiển thị các đáp án A, B, C, D
+                        $q2 = mysqli_query($con, "SELECT * FROM options WHERE qid='$qid'") or die('Error khi truy vấn bảng question');
+                        $op = 1;
+                        $option1 = '';
+                        $option2 = '';
+                        $option3 = '';
+                        $option4 = '';
+                        while ($row1 = mysqli_fetch_assoc($q2)) {
+                        // Sử dụng biến $op để thay thế vào name="op1_", op2_, ...
+                            echo '<b>Đáp án:</b> <input type="text" name="op' . $op . '_' . $row1['optionid'] . '" value="' . $row1['option'] . '" class="form-control"><br />';
+                            if ($op == 1) {
+                                $option1 = $row1['optionid'];
+                            } elseif ($op == 2) {
+                                $option2 = $row1['optionid'];
+                            } elseif ($op == 3) {
+                                $option3 = $row1['optionid'];
+                            } elseif ($op == 4) {
+                                $option4 = $row1['optionid'];
+                            }
+                            $op++;  // Tăng giá trị của $op
+                        }
+
+                        $q3 = mysqli_query($con, "SELECT * FROM answer WHERE qid='$qid'") or die('Error khi truy vấn bảng question');
+                        $row2 = mysqli_fetch_assoc($q3);
+                        // Hiển thị đáp án đúng
+                        echo '<b>Đáp án đúng:</b>';
+                            echo '<select name="ans_' . $row['qid'] . '" class="form-control">';
+                                echo '<option value="' . $option1 . '" ' . ($row2['ansid'] == $option1 ? 'selected' : '') . '>A</option>';
+                                echo '<option value="' . $option2 . '" ' . ($row2['ansid'] == $option2 ? 'selected' : '') . '>B</option>';
+                                echo '<option value="' . $option3 . '" ' . ($row2['ansid'] == $option3 ? 'selected' : '') . '>C</option>';
+                                echo '<option value="' . $option4 . '" ' . ($row2['ansid'] == $option4 ? 'selected' : '') . '>D</option>';
+                            echo '</select><br />';
+    
+                        // Thêm câu hỏi ID để dễ dàng xác định câu hỏi nào đang được thay đổi
+                        echo '<input type="hidden" name="qid_' . $row['qid'] . '" value="' . $row['qid'] . '">';
+    
+                        echo '</div><hr>';
+                    }
+
+                    // Lấy danh sách câu hỏi từ bảng fill_questions
+                    $q4 = mysqli_query($con, "SELECT * FROM fill_questions WHERE eid='$eid'") or die('Error khi truy vấn bảng questions');
+
+                    // Hiển thị câu hỏi điền từ
+                    while ($row4 = mysqli_fetch_assoc($q4)) {
+                        $qid = $row4['qid'];
+                        echo '<div class="question-block">';
+
+                        // Hiển thị câu hỏi điền từ
+                        echo '<b>Câu hỏi ' . $row4['sn'] . ':</b> <textarea name="fill_qns_' . $row4['qid'] . '" class="form-control">' . $row4['qns'] . '</textarea><br />';
+
+                         // Hiển thị đáp án đúng cho câu hỏi điền từ (nếu có)
+                        echo '<b>Đáp án đúng:</b> <input type="text" name="fill_ans_' . $row4['qid'] . '" value="' . (isset($row4['answer']) ? $row4['answer'] : '') . '" class="form-control"><br />';
+
+                        // Thêm câu hỏi ID để dễ dàng xác định câu hỏi điền từ đang được thay đổi
+                        echo '<input type="hidden" name="qid_' . $row4['qid'] . '" value="' . $row4['qid'] . '">';
+    
+                        echo '</div><hr>';
+                    }
+
+                    // Bao bọc nút submit trong div và sử dụng flexbox để căn giữa
+                        echo '<div style="display: flex; justify-content: center; margin-top: 20px;">';
+                        echo '<input type="submit" value="Cập nhật toàn bộ bài" class="btn btn-primary" style="margin-bottom: 20px">';
+                        echo '</div>';
+
+                    echo '</form>';    
+                }
                 ?>
             </div>
-
         </div>
     </div>
     

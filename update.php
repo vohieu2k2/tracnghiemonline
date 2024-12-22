@@ -640,4 +640,55 @@ if (@$_GET['q'] == 'quiz' && @$_GET['step'] == 2 && isset($_SESSION['6e447159425
         header('location:account.php?q=result&eid=' . $_GET[eid]);
     }
 }
+
+if(@$_GET['q'] == 'edit' && $_SERVER['REQUEST_METHOD'] == 'POST'){
+        // Lặp qua tất cả các câu hỏi và cập nhật các trường dữ liệu
+        foreach ($_POST as $key => $value) {
+            // Kiểm tra nếu dữ liệu là câu hỏi hoặc đáp án
+            if (strpos($key, 'qns_') === 0) {
+                // Lấy qid câu hỏi và câu hỏi mới
+                $qid = str_replace('qns_', '', $key);
+                $new_question = mysqli_real_escape_string($con, $value); // Làm sạch dữ liệu đầu vào
+                
+                // Cập nhật câu hỏi mới vào cơ sở dữ liệu
+                $update_question_query = "UPDATE questions SET qns='$new_question' WHERE qid='$qid'";
+                mysqli_query($con, $update_question_query);
+
+            } elseif (strpos($key, 'op1_') === 0 || strpos($key, 'op2_') === 0 || strpos($key, 'op3_') === 0 || strpos($key, 'op4_') === 0) {
+                // Lấy qID câu hỏi và đáp án (op1, op2, op3, op4)
+                $optionid = str_replace(['op1_', 'op2_', 'op3_', 'op4_'], '', $key);
+                $new_answer = mysqli_real_escape_string($con, $value); // Làm sạch dữ liệu đầu vào
+            
+                // Cập nhật đáp án vào bảng options
+                $update_answer_query = "UPDATE options SET `option` ='$new_answer' WHERE optionid='$optionid'";
+                mysqli_query($con, $update_answer_query);
+            } elseif (strpos($key, 'ans_') === 0) {
+                $qid = str_replace('ans_', '', $key); // Lấy ID câu hỏi
+                $correctAnswer = $_POST["ans_$qid"]; // Lấy đáp án đúng
+
+                // Cập nhật cơ sở dữ liệu
+                $query = "UPDATE answer SET ansid='$correctAnswer' WHERE qid='$qid'";
+                mysqli_query($con, $query) or die('Error khi cập nhật đáp án');
+
+            } elseif (strpos($key, 'fill_qns_') === 0) {
+                // Xử lý câu hỏi điền từ
+                $qid = str_replace('fill_qns_', '', $key); // Lấy qid câu hỏi điền từ
+                $new_fill_question = mysqli_real_escape_string($con, $value); // Làm sạch dữ liệu câu hỏi điền từ
+                
+                // Cập nhật câu hỏi điền từ vào cơ sở dữ liệu
+                $update_fill_question_query = "UPDATE fill_questions SET qns='$new_fill_question' WHERE qid='$qid'";
+                mysqli_query($con, $update_fill_question_query);
+        
+            } elseif (strpos($key, 'fill_ans_') === 0) {
+                // Xử lý đáp án đúng cho câu hỏi điền từ
+                $qid = str_replace('fill_ans_', '', $key); // Lấy qid câu hỏi điền từ
+                $correct_fill_answer = mysqli_real_escape_string($con, $value); // Lấy đáp án điền từ đúng và làm sạch
+                
+                // Cập nhật đáp án đúng vào bảng fill_answers
+                $update_fill_answer_query = "UPDATE fill_questions SET answer='$correct_fill_answer' WHERE qid='$qid'";
+                mysqli_query($con, $update_fill_answer_query);
+            }
+        }
+        header("location: dash.php?q=7");
+    }
 ?>
