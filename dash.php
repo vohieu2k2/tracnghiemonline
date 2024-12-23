@@ -203,7 +203,7 @@
                     //     $showtill = 10;
                     // }
 
-                    $q = mysqli_query($con, "SELECT * FROM quiz") or die('Error223');
+                    // $q = mysqli_query($con, "SELECT * FROM quiz") or die('Error223');
                     echo '<div class="panel title">
                     <table class="table table-striped title1" >
                     <tr style="text-align: center">
@@ -218,7 +218,7 @@
                     // if($total >= $showfrom){
                         // $q = mysqli_query($con, "SELECT * FROM quiz ORDER BY date ASC LIMIT ".($showfrom-1).",10") or die('Error223');
                         $c = 0;
-                        $q = mysqli_query($con, "SELECT * FROM quiz ORDER BY date DESC") or die('Error223');
+                        $q = mysqli_query($con, "SELECT * FROM quiz ORDER BY STR_TO_DATE(examdate, '%d/%m/%Y') ASC") or die('Error223');
                         while ($row = mysqli_fetch_array($q)) {
                             $eid = $row['eid'];
                             $title = $row['title'];
