@@ -192,16 +192,16 @@
                 }
                 // Trang quản lí điểm số bài thi
                 if (@$_GET['q'] == 2 && !(@$_GET['eid'])) {
-                    if(isset($_GET['show'])){
-                        $show = $_GET['show'];
-                        $showfrom = (($show-1)*10) + 1;
-                        $showtill = $showfrom + 9;
-                    }
-                    else{
-                        $show = 1;
-                        $showfrom = 1;
-                        $showtill = 10;
-                    }
+                    // if(isset($_GET['show'])){
+                    //     $show = $_GET['show'];
+                    //     $showfrom = (($show-1)*10) + 1;
+                    //     $showtill = $showfrom + 9;
+                    // }
+                    // else{
+                    //     $show = 1;
+                    //     $showfrom = 1;
+                    //     $showtill = 10;
+                    // }
 
                     $q = mysqli_query($con, "SELECT * FROM quiz") or die('Error223');
                     echo '<div class="panel title">
@@ -213,10 +213,12 @@
                         <td style="vertical-align:middle"><b>Trạng thái</b></td>
                         <td style="vertical-align:middle"><b>Số lượng thí sinh thi</b></td>
                         </tr>';
-                    $c = $showfrom-1;
-                    $total = mysqli_num_rows($q);
-                    if($total >= $showfrom){
-                        $q = mysqli_query($con, "SELECT * FROM quiz ORDER BY date ASC LIMIT ".($showfrom-1).",10") or die('Error223');
+                    // $c = $showfrom-1;
+                    // $total = mysqli_num_rows($q);
+                    // if($total >= $showfrom){
+                        // $q = mysqli_query($con, "SELECT * FROM quiz ORDER BY date ASC LIMIT ".($showfrom-1).",10") or die('Error223');
+                        $c = 0;
+                        $q = mysqli_query($con, "SELECT * FROM quiz ORDER BY date DESC") or die('Error223');
                         while ($row = mysqli_fetch_array($q)) {
                             $eid = $row['eid'];
                             $title = $row['title'];
@@ -262,61 +264,60 @@
                             }
                             
                         }
-                    }
-                    else{
-                    }
+                    // }else{
+                    // }
                     echo '</table></div>';
-                    echo '<div class="panel title"><table class="table table-striped title1"><tr style="text-align: center">';
-                    $total = ceil($total/10);
-                    if(isset($_GET['show'])){
-                        $show = $_GET['show'];
-                    }
-                    else{
-                        $show = 1;
-                    }
-                    if($show == 1 && $total==1){
-                    }
-                    else if($show == 1 && $total!=1){
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                    }
-                    else if($show != 1 && $show==$total){
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                    // echo '<div class="panel title"><table class="table table-striped title1"><tr style="text-align: center">';
+                    // $total = ceil($total/10);
+                    // if(isset($_GET['show'])){
+                    //     $show = $_GET['show'];
+                    // }
+                    // else{
+                    //     $show = 1;
+                    // }
+                    // if($show == 1 && $total==1){
+                    // }
+                    // else if($show == 1 && $total!=1){
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                    // }
+                    // else if($show != 1 && $show==$total){
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
 
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                    }
-                    else{
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                    }
-                    echo '</tr></table></div>';
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    // }
+                    // else{
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                    // }
+                    // echo '</tr></table></div>';
                 } else if(@$_GET['q'] == 2){
                     // Lấy giá trị của 'eid'
                     $eid = $_GET['eid'];
 
-                    if(isset($_GET['show'])){
-                        $show = $_GET['show'];
-                        $showfrom = (($show-1)*10) + 1;
-                        $showtill = $showfrom + 9;
-                    }
-                    else{
-                        $show = 1;
-                        $showfrom = 1;
-                        $showtill = 10;
-                    }
+                    // if(isset($_GET['show'])){
+                    //     $show = $_GET['show'];
+                    //     $showfrom = (($show-1)*10) + 1;
+                    //     $showtill = $showfrom + 9;
+                    // }
+                    // else{
+                    //     $show = 1;
+                    //     $showfrom = 1;
+                    //     $showtill = 10;
+                    // }
                     // Lấy tên bài thi
                     $q = mysqli_query($con, "SELECT * FROM quiz where eid = '$eid'") or die('Error223');
                     while ($row = mysqli_fetch_array($q)) {
@@ -333,10 +334,12 @@
                         <td style="vertical-align:middle; text-align: center"><b>Điểm cộng trên lớp</b></td>
                         <td style="vertical-align:middle; text-align: center"><b>Tổng điểm</b></td>
                     </tr>';
-                    $c = $showfrom-1;
-                    $total = mysqli_num_rows($q);
-                    if($total >= $showfrom){
-                        $q = mysqli_query($con, "SELECT * FROM history WHERE eid = '$eid' ORDER BY score DESC LIMIT " . ($showfrom - 1) . ", 10") or die('Error223');
+                    // $c = $showfrom-1;
+                    $c = 0;
+                    // $total = mysqli_num_rows($q);
+                    // if($total >= $showfrom){
+                        // $q = mysqli_query($con, "SELECT * FROM history WHERE eid = '$eid' ORDER BY score DESC LIMIT " . ($showfrom - 1) . ", 10") or die('Error223');
+                        $q = mysqli_query($con, "SELECT * FROM history WHERE eid = '$eid' ORDER BY score DESC") or die('Error223');
                         while ($row = mysqli_fetch_array($q)) {
                             $e = $row['username'];
                             $s = $row['score'];
@@ -371,46 +374,46 @@
                                     <td style="vertical-align:middle">';
 
                         }
-                    }else{}
+                    // }else{}
 
                     echo '</table></div>';
-                    echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
-                    $total = ceil($total/10);;
-                    if(isset($_GET['show'])){
-                        $show = $_GET['show'];
-                    }
-                    else{
-                        $show = 1;
-                    }
-                    if($show == 1 && $total==1){
-                    }
-                    else if($show == 1 && $total!=1){
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                    }
-                    else if($show != 1 && $show==$total){
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                    // echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
+                    // $total = ceil($total/10);;
+                    // if(isset($_GET['show'])){
+                    //     $show = $_GET['show'];
+                    // }
+                    // else{
+                    //     $show = 1;
+                    // }
+                    // if($show == 1 && $total==1){
+                    // }
+                    // else if($show == 1 && $total!=1){
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                    // }
+                    // else if($show != 1 && $show==$total){
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
 
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                    }
-                    else{
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                    }
-                    echo '</tr></table></div>';
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    // }
+                    // else{
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                    // }
+                    // echo '</tr></table></div>';
                     
                 }
                 // Trang quản lí người dùng
@@ -694,16 +697,16 @@
                 //Trang chủ
                 if ($_GET['q'] == 0 && !(@$_GET['username']) && !(@$_GET['sort'])){
                     
-                    if(isset($_GET['show'])){
-                        $show = $_GET['show'];
-                        $showfrom = (($show-1)*10) + 1;
-                        $showtill = $showfrom + 9;
-                    }
-                    else{
-                        $show = 1;
-                        $showfrom = 1;
-                        $showtill = 10;
-                    }          
+                    // if(isset($_GET['show'])){
+                    //     $show = $_GET['show'];
+                    //     $showfrom = (($show-1)*10) + 1;
+                    //     $showtill = $showfrom + 9;
+                    // }
+                    // else{
+                    //     $show = 1;
+                    //     $showfrom = 1;
+                    //     $showtill = 10;
+                    // }          
 
                     echo '<div class="panel title">
                     <table class="table table-striped title1" >
@@ -721,7 +724,8 @@
                     $q1 = mysqli_query($con, "SELECT * FROM quiz") or die('Error223');
                     $total = mysqli_num_rows($q1);
 
-                    $q = mysqli_query($con, "SELECT * FROM user LIMIT ".($showfrom-1).",10") or die('Error223');
+                    // $q = mysqli_query($con, "SELECT * FROM user LIMIT ".($showfrom-1).",10") or die('Error223');
+                    $q = mysqli_query($con, "SELECT * FROM user") or die('Error223');
 
                     // Khởi tạo mảng để chứa các đối tượng
                     $userArray = array();
@@ -803,58 +807,58 @@
                     }
 
                     echo '</table></div>';
-                    echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
-                    $total = ceil($total/10);;
-                    if(isset($_GET['show'])){
-                        $show = $_GET['show'];
-                    }
-                    else{
-                        $show = 1;
-                    }
-                    if($show == 1 && $total==1){
-                    }
-                    else if($show == 1 && $total!=1){
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                    }
-                    else if($show != 1 && $show==$total){
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                    // echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
+                    // $total = ceil($total/10);;
+                    // if(isset($_GET['show'])){
+                    //     $show = $_GET['show'];
+                    // }
+                    // else{
+                    //     $show = 1;
+                    // }
+                    // if($show == 1 && $total==1){
+                    // }
+                    // else if($show == 1 && $total!=1){
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                    // }
+                    // else if($show != 1 && $show==$total){
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
 
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                    }
-                    else{
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                    }
-                    echo '</tr></table></div>';
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    // }
+                    // else{
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                    // }
+                    // echo '</tr></table></div>';
 
                 } else if($_GET['q'] == 0 && (@$_GET['username'])){
                     // Lấy giá trị của 'username'
                     $username = $_GET['username'];
 
-                    if(isset($_GET['show'])){
-                        $show = $_GET['show'];
-                        $showfrom = (($show-1)*10) + 1;
-                        $showtill = $showfrom + 9;
-                    }
-                    else{
-                        $show = 1;
-                        $showfrom = 1;
-                        $showtill = 10;
-                    }
+                    // if(isset($_GET['show'])){
+                    //     $show = $_GET['show'];
+                    //     $showfrom = (($show-1)*10) + 1;
+                    //     $showtill = $showfrom + 9;
+                    // }
+                    // else{
+                    //     $show = 1;
+                    //     $showfrom = 1;
+                    //     $showtill = 10;
+                    // }
 
                     $q = mysqli_query($con, "SELECT * FROM user where username = '$username'") or die('Error223');
                     while ($row = mysqli_fetch_array($q)) {
@@ -873,10 +877,12 @@
                         <td style="vertical-align:middle; text-align: center"><b>Tổng điểm</b></td>
                     </tr>';
 
-                    $c = $showfrom-1;
-                    $total = mysqli_num_rows($q);
-                    if($total >= $showfrom){
-                        $q = mysqli_query($con, "SELECT * FROM history WHERE username = '$username' ORDER BY date DESC LIMIT " . ($showfrom - 1) . ", 10") or die('Error223');
+                    // $c = $showfrom-1;
+                    $c = 0;
+                    // $total = mysqli_num_rows($q);
+                    // if($total >= $showfrom){
+                        // $q = mysqli_query($con, "SELECT * FROM history WHERE username = '$username' ORDER BY date DESC LIMIT " . ($showfrom - 1) . ", 10") or die('Error223');
+                        $q = mysqli_query($con, "SELECT * FROM history WHERE username = '$username' ORDER BY date DESC") or die('Error223');
                         while ($row = mysqli_fetch_array($q)) {
                             $e = $row['eid'];
                             $s = $row['score'];
@@ -913,58 +919,58 @@
                                     <td style="vertical-align:middle">';
 
                         }
-                    }else{}
+                    // }else{}
 
                     echo '</table></div>';
-                    echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
-                    $total = ceil($total/10);;
-                    if(isset($_GET['show'])){
-                        $show = $_GET['show'];
-                    }
-                    else{
-                        $show = 1;
-                    }
-                    if($show == 1 && $total==1){
-                    }
-                    else if($show == 1 && $total!=1){
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                    }
-                    else if($show != 1 && $show==$total){
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                    // echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
+                    // $total = ceil($total/10);;
+                    // if(isset($_GET['show'])){
+                    //     $show = $_GET['show'];
+                    // }
+                    // else{
+                    //     $show = 1;
+                    // }
+                    // if($show == 1 && $total==1){
+                    // }
+                    // else if($show == 1 && $total!=1){
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                    // }
+                    // else if($show != 1 && $show==$total){
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
 
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                    }
-                    else{
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
-                        $i = 1;
-                        while($i<=$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                            $i++;
-                        }
-                        echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                    }
-                    echo '</tr></table></div>';
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    // }
+                    // else{
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                    //     $i = 1;
+                    //     while($i<=$total){
+                    //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                    //         $i++;
+                    //     }
+                    //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                    // }
+                    // echo '</tr></table></div>';
                 } else if($_GET['q'] == 0 && (@$_GET['sort'])){
                     if (@$_GET['sort'] == 'name'){
-                        if(isset($_GET['show'])){
-                            $show = $_GET['show'];
-                            $showfrom = (($show-1)*10) + 1;
-                            $showtill = $showfrom + 9;
-                        }
-                        else{
-                            $show = 1;
-                            $showfrom = 1;
-                            $showtill = 10;
-                        }
+                        // if(isset($_GET['show'])){
+                        //     $show = $_GET['show'];
+                        //     $showfrom = (($show-1)*10) + 1;
+                        //     $showtill = $showfrom + 9;
+                        // }
+                        // else{
+                        //     $show = 1;
+                        //     $showfrom = 1;
+                        //     $showtill = 10;
+                        // }
     
                         echo '<div class="panel title">
                         <table class="table table-striped title1" >
@@ -982,7 +988,8 @@
                         $q1 = mysqli_query($con, "SELECT * FROM quiz") or die('Error223');
                         $total = mysqli_num_rows($q1);
     
-                        $q = mysqli_query($con, "SELECT * FROM user LIMIT ".($showfrom-1).",10") or die('Error223');
+                        $q = mysqli_query($con, "SELECT * FROM user") or die('Error223');
+                        // $q = mysqli_query($con, "SELECT * FROM user LIMIT ".($showfrom-1).",10") or die('Error223');
     
                         // Khởi tạo mảng để chứa các đối tượng
                         $userArray = array();
@@ -1064,54 +1071,54 @@
                         }
     
                         echo '</table></div>';
-                        echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
-                        $total = ceil($total/10);;
-                        if(isset($_GET['show'])){
-                            $show = $_GET['show'];
-                        }
-                        else{
-                            $show = 1;
-                        }
-                        if($show == 1 && $total==1){
-                        }
-                        else if($show == 1 && $total!=1){
-                            $i = 1;
-                            while($i<=$total){
-                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                                $i++;
-                            }
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                        }
-                        else if($show != 1 && $show==$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                        // echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
+                        // $total = ceil($total/10);;
+                        // if(isset($_GET['show'])){
+                        //     $show = $_GET['show'];
+                        // }
+                        // else{
+                        //     $show = 1;
+                        // }
+                        // if($show == 1 && $total==1){
+                        // }
+                        // else if($show == 1 && $total!=1){
+                        //     $i = 1;
+                        //     while($i<=$total){
+                        //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                        //         $i++;
+                        //     }
+                        //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                        // }
+                        // else if($show != 1 && $show==$total){
+                        //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
     
-                            $i = 1;
-                            while($i<=$total){
-                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                                $i++;
-                            }
-                        }
-                        else{
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
-                            $i = 1;
-                            while($i<=$total){
-                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                                $i++;
-                            }
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                        }
-                        echo '</tr></table></div>';
+                        //     $i = 1;
+                        //     while($i<=$total){
+                        //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                        //         $i++;
+                        //     }
+                        // }
+                        // else{
+                        //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                        //     $i = 1;
+                        //     while($i<=$total){
+                        //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                        //         $i++;
+                        //     }
+                        //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                        // }
+                        // echo '</tr></table></div>';
                     } else if(@$_GET['sort'] == 'score'){
-                        if(isset($_GET['show'])){
-                            $show = $_GET['show'];
-                            $showfrom = (($show-1)*10) + 1;
-                            $showtill = $showfrom + 9;
-                        }
-                        else{
-                            $show = 1;
-                            $showfrom = 1;
-                            $showtill = 10;
-                        }
+                        // if(isset($_GET['show'])){
+                        //     $show = $_GET['show'];
+                        //     $showfrom = (($show-1)*10) + 1;
+                        //     $showtill = $showfrom + 9;
+                        // }
+                        // else{
+                        //     $show = 1;
+                        //     $showfrom = 1;
+                        //     $showtill = 10;
+                        // }
     
                         echo '<div class="panel title">
                         <table class="table table-striped title1" >
@@ -1128,8 +1135,10 @@
     
                         $q1 = mysqli_query($con, "SELECT * FROM quiz") or die('Error223');
                         $total = mysqli_num_rows($q1);
+
+                        // $q = mysqli_query($con, "SELECT * FROM user LIMIT ".($showfrom-1).",10") or die('Error223');
     
-                        $q = mysqli_query($con, "SELECT * FROM user LIMIT ".($showfrom-1).",10") or die('Error223');
+                        $q = mysqli_query($con, "SELECT * FROM user") or die('Error223');
     
                         // Khởi tạo mảng để chứa các đối tượng
                         $userArray = array();
@@ -1216,43 +1225,43 @@
                         }
     
                         echo '</table></div>';
-                        echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
-                        $total = ceil($total/10);;
-                        if(isset($_GET['show'])){
-                            $show = $_GET['show'];
-                        }
-                        else{
-                            $show = 1;
-                        }
-                        if($show == 1 && $total==1){
-                        }
-                        else if($show == 1 && $total!=1){
-                            $i = 1;
-                            while($i<=$total){
-                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                                $i++;
-                            }
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                        }
-                        else if($show != 1 && $show==$total){
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                        // echo '<div class="panel title"><table class="table table-striped title1" ><tr style="text-align: center">';
+                        // $total = ceil($total/10);;
+                        // if(isset($_GET['show'])){
+                        //     $show = $_GET['show'];
+                        // }
+                        // else{
+                        //     $show = 1;
+                        // }
+                        // if($show == 1 && $total==1){
+                        // }
+                        // else if($show == 1 && $total!=1){
+                        //     $i = 1;
+                        //     while($i<=$total){
+                        //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                        //         $i++;
+                        //     }
+                        //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                        // }
+                        // else if($show != 1 && $show==$total){
+                        //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
     
-                            $i = 1;
-                            while($i<=$total){
-                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                                $i++;
-                            }
-                        }
-                        else{
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
-                            $i = 1;
-                            while($i<=$total){
-                                echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
-                                $i++;
-                            }
-                            echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
-                        }
-                        echo '</tr></table></div>';
+                        //     $i = 1;
+                        //     while($i<=$total){
+                        //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                        //         $i++;
+                        //     }
+                        // }
+                        // else{
+                        //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show-1).'">&nbsp;<<&nbsp;</a></td>';
+                        //     $i = 1;
+                        //     while($i<=$total){
+                        //         echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.$i.'">&nbsp;'.$i.'&nbsp;</a></td>';
+                        //         $i++;
+                        //     }
+                        //     echo '<td style="vertical-align:middle;text-align:center"><a style="font-size:14px;font-family:typo;font-weight:bold" href="dash.php?q=2&show='.($show+1).'">&nbsp;>>&nbsp;</a></td>';
+                        // }
+                        // echo '</tr></table></div>';
                     }
                 }
 
