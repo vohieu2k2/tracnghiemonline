@@ -48,9 +48,6 @@
         function redirectToPage(eid) {
         window.location.href = "dash.php?q=2&eid=" + eid;
         }
-
-        
-
    
     </script>
    </head>
@@ -110,14 +107,14 @@
                     if (@$_GET['q'] == 2)
                         echo 'class="active"';
                     ?>><a href="dash.php?q=2">Điểm số bài thi</a></li>
-                    <!-- <li <?php
-                    // if (@$_GET['q'] == 7)
-                    //     echo 'class="active"';
-                    ?>><a href="dash.php?q=7">Điểm số lớp</a></li> -->
                     <li <?php
-                    if (@$_GET['q'] == 3)
+                    if (@$_GET['q'] == 8)
                         echo 'class="active"';
-                    ?>><a href="dash.php?q=3">Phản hồi</a></li>
+                    ?>><a href="dash.php?q=8">Giải đáp học viên</a></li>
+                    <!-- <li <?php
+                    // if (@$_GET['q'] == 3)
+                    //     echo 'class="active"';
+                    ?>><a href="dash.php?q=3">Phản hồi</a></li> -->
                     <li <?php
                     if (@$_GET['q'] == 4)
                         echo 'class="active"';
@@ -447,29 +444,29 @@
                     echo '</table></div>';
 
                 }
-                //Trang phản hồi
-                if (@$_GET['q'] == 3) {
-                    $result = mysqli_query($con, "SELECT * FROM `feedback` ORDER BY `feedback`.`date` DESC") or die('Error');
-                    echo '<div class="panel"><table class="table table-striped title1">
-                    <tr><td style="vertical-align:middle"><b>STT</b></td><td style="vertical-align:middle"><b>Nội dung</b></td><td style="vertical-align:middle"><b>Tài khoản</b></td><td style="vertical-align:middle"><b>Ngày</b></td><td style="vertical-align:middle"><b>Giờ</b></td><td style="vertical-align:middle"><b>Tác giả</b></td><td style="vertical-align:middle"></td><td style="vertical-align:middle"><b>Tùy chỉnh</b></td></tr>';
-                    $c = 1;
-                    while ($row = mysqli_fetch_array($result)) {
-                        $date      = $row['date'];
-                        $date      = date("d-m-Y", strtotime($date));
-                        $time      = $row['time'];
-                        $subject   = $row['subject'];
-                        $name      = $row['name'];
-                        $username1 = $row['username'];
-                        $id        = $row['id'];
-                        echo '<tr><td style="vertical-align:middle">' . $c++ . '</td>';
-                        echo '<td style="vertical-align:middle"><a title="Click to open feedback" href="dash.php?q=3&fid=' . $id . '">' . $subject . '</a></td><td style="vertical-align:middle">' . $username1 . '</td><td style="vertical-align:middle">' . $date . '</td><td style="vertical-align:middle">' . $time . '</td><td style="vertical-align:middle">' . $name . '</td>
-                        <td style="vertical-align:middle"><a title="Mở phản hồi" href="dash.php?q=3&fid=' . $id . '"><b><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></b></a></td>';
-                        echo '<td style="vertical-align:middle"><a title="Xóa phản hồi" href="update.php?fdid=' . $id . '"><b><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></b></a></td>
+                // //Trang phản hồi
+                // if (@$_GET['q'] == 3) {
+                //     $result = mysqli_query($con, "SELECT * FROM `feedback` ORDER BY `feedback`.`date` DESC") or die('Error');
+                //     echo '<div class="panel"><table class="table table-striped title1">
+                //     <tr><td style="vertical-align:middle"><b>STT</b></td><td style="vertical-align:middle"><b>Nội dung</b></td><td style="vertical-align:middle"><b>Tài khoản</b></td><td style="vertical-align:middle"><b>Ngày</b></td><td style="vertical-align:middle"><b>Giờ</b></td><td style="vertical-align:middle"><b>Tác giả</b></td><td style="vertical-align:middle"></td><td style="vertical-align:middle"><b>Tùy chỉnh</b></td></tr>';
+                //     $c = 1;
+                //     while ($row = mysqli_fetch_array($result)) {
+                //         $date      = $row['date'];
+                //         $date      = date("d-m-Y", strtotime($date));
+                //         $time      = $row['time'];
+                //         $subject   = $row['subject'];
+                //         $name      = $row['name'];
+                //         $username1 = $row['username'];
+                //         $id        = $row['id'];
+                //         echo '<tr><td style="vertical-align:middle">' . $c++ . '</td>';
+                //         echo '<td style="vertical-align:middle"><a title="Click to open feedback" href="dash.php?q=3&fid=' . $id . '">' . $subject . '</a></td><td style="vertical-align:middle">' . $username1 . '</td><td style="vertical-align:middle">' . $date . '</td><td style="vertical-align:middle">' . $time . '</td><td style="vertical-align:middle">' . $name . '</td>
+                //         <td style="vertical-align:middle"><a title="Mở phản hồi" href="dash.php?q=3&fid=' . $id . '"><b><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></b></a></td>';
+                //         echo '<td style="vertical-align:middle"><a title="Xóa phản hồi" href="update.php?fdid=' . $id . '"><b><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></b></a></td>
 
-                        </tr>';
-                    }
-                    echo '</table></div>';
-                }
+                //         </tr>';
+                //     }
+                //     echo '</table></div>';
+                // }
                 // Lấy thông tin phản hồi từ bảng feedback trong cơ sở dữ liệu dựa trên id
                 if (@$_GET['fid']) {
                     echo '<br />';
@@ -650,7 +647,7 @@
                     <td style="vertical-align:middle"><b>Tổng số câu hỏi</b></td>
                     <td style="vertical-align:middle"><b>Thời gian</b></td>
                     <td style="vertical-align:middle"><b>Trạng thái</b></td>
-                    </t>';
+                    </tr>';
                     $c = 1;
                     while ($row = mysqli_fetch_array($result)) {
                         $title   = $row['title'];
@@ -694,6 +691,86 @@
 
                     echo '</table></div></div>';
                 }
+
+                // Trang phản hồi người dùng
+                if (@$_GET['q'] == 8 && !(@$_GET['username'])) {
+
+                    // Truy vấn lấy tất cả phản hồi của người dùng (loại 'user')
+                    $q = "SELECT username, feedback, MAX(date) AS latest_date 
+                        FROM feedbacks 
+                        WHERE userType = 'user' 
+                        GROUP BY username 
+                        ORDER BY latest_date DESC";
+                    $result = mysqli_query($con, $q);
+
+                    $id = 1;
+                    echo '<h2 style = "text-align:center">Danh sách học viên phản hồi</h2>';
+                    // Hiển thị danh sách người dùng có phản hồi
+                    echo '<div class="panel"><table class="table table-striped title1">
+                    <tr style="text-align: center">
+                    <td style="vertical-align:middle"><b>STT</b></td>
+                    <td style="vertical-align:middle"><b>Tên người dùng</b></td>
+                    <td style="vertical-align:middle"><b>Thời gian</b></td>
+                    <td style="vertical-align:middle"><b>Chi tiết</b></td>
+                    </tr>';
+                    $c = 1;
+                    while ($row = mysqli_fetch_array($result)) {
+                        $username = $row['username'];
+                        $feedback = $row['feedback'];
+                        $date = $row['latest_date']; // Sử dụng thời gian mới nhất từ truy vấn
+                        echo '<tr style="text-align: center">
+                        <td style="vertical-align:middle">' . $c++ . '</td>
+                        <td style="vertical-align:middle">' . $username . '</td>
+                        <td style="vertical-align:middle">' . $date . '</td>
+                        <td style="vertical-align:middle"><a href="dash.php?q=8&username=' . $username . '" class="btn btn-info">Xem phản hồi</a></td>';
+                    }
+                } else if (@$_GET['q'] == 8) {
+                    $username = @$_GET['username'];
+                    // Lấy tất cả các phản hồi từ bảng feedbacks
+                    $query = "SELECT * FROM feedbacks WHERE username = '$username' OR recipient = '$username' ORDER BY date ASC";
+                    $result = mysqli_query($con, $query);
+                    
+                    // Duyệt qua tất cả phản hồi và hiển thị
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $feedback = $row['feedback'];
+                        $username = $row['username'];
+                        $date = $row['date'];
+                        $userType = $row['userType'];
+                    
+                        // Hiển thị phản hồi của người dùng
+                        echo '<div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong>' . $username . '</strong> <small>vào lúc ' . $date . '</small>
+                                </div>
+                                <div class="panel-body">
+                                    <p>' . nl2br($feedback) . '</p>
+                                </div>
+                            </div>';
+                    }
+                    
+                    echo '<div class="panel-footer">
+                                <form action="feedadmin.php?q=feedback.php" method="post">
+                                    <!-- Trường ẩn để gửi thông tin username của người trả lời (giảng viên) -->
+                                    <input type="hidden" name="teacher_username" value="' . $_SESSION['username'] . '">
+                    
+                                    <!-- Trường ẩn để gửi thông tin username của người gửi phản hồi (người dùng) -->
+                                    <input type="hidden" name="student_username" value="' . @$_GET['username'] . '">
+                    
+                                    <div class="form-group">
+                                        <label for="reply">Giảng viên trả lời:</label>
+                                        <textarea class="form-control" name="reply" rows="3" placeholder="Nhập nội dung trả lời"></textarea>
+                                    </div>
+                    
+                                     <!-- Căn chỉnh nút về bên phải -->
+        <div style="text-align: right;">
+            <button type="submit" class="btn btn-primary">Gửi phản hồi</button>
+        </div>
+                                </form>
+                            </div>';
+
+                }
+
+
                 //Trang chủ
                 if ($_GET['q'] == 0 && !(@$_GET['username']) && !(@$_GET['sort'])){
                     

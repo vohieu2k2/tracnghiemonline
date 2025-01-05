@@ -72,11 +72,11 @@ include_once 'dbConnection.php';
                             echo 'class="active"';
                             ?>><a href="account.php?q=2"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;Lịch sử</a>
                         </li>
-                        <!-- <li <?php
-                            // if (@$_GET['q'] == 3)
-                            //     echo 'class="active"';
-                                ?>><a href="account.php?q=3"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Bảng xếp hạng</a>
-                            </li> -->
+                        <li <?php
+                            if (@$_GET['q'] == 3)
+                                echo 'class="active"';
+                                ?>><a href="account.php?q=3"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;Trao đổi giảng viên</a>
+                            </li>
                         <li <?php
                             if (@$_GET['q'] == 4)
                                 echo 'class="active"';
@@ -751,8 +751,49 @@ include_once 'dbConnection.php';
                 }
                 echo '</table></div>';
             }
-    // Trang xếp hạng
-    // if (@$_GET['q'] == 3) {
+
+            //Trao đổi với giảng viên
+            if (@$_GET['q'] == 3) {
+                // Lấy tất cả các phản hồi từ bảng feedbacks
+                $query = "SELECT * FROM feedbacks WHERE username = '$username' OR recipient = '$username' ORDER BY date ASC";
+                $result = mysqli_query($con, $query);
+        
+        // Duyệt qua tất cả phản hồi và hiển thị
+        while ($row = mysqli_fetch_assoc($result)) {
+            $feedback = $row['feedback'];
+            $username = $row['username'];
+            $date = $row['date'];
+            $userType = $row['userType'];
+        
+            // Hiển thị phản hồi của người dùng
+            echo '<div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>' . $username . '</strong> <small>vào lúc ' . $date . '</small>
+                    </div>
+                    <div class="panel-body">
+                        <p>' . nl2br($feedback) . '</p>
+                    </div>
+                </div>';
+        }
+        
+        echo '<div class="panel-footer">
+                    <form action="feeduser.php?q=feedback.php" method="post">
+
+                        <input type="hidden" name="username" value="' . $_SESSION['username'] . '">
+        
+                        <div class="form-group">
+                            <label for="reply">Học viên trả lời:</label>
+                            <textarea class="form-control" name="feedback" rows="3" placeholder="Nhập nội dung trả lời"></textarea>
+                        </div>
+        
+                         <!-- Căn chỉnh nút về bên phải -->
+        <div style="text-align: right;">
+            <button type="submit" class="btn btn-primary">Gửi phản hồi</button>
+        </div>
+                    </form>
+                </div>';
+
+    }
     //     if(isset($_GET['show'])){
     //         $show = $_GET['show'];
     //         $showfrom = (($show-1)*10) + 1;
@@ -867,14 +908,45 @@ include_once 'dbConnection.php';
     </div>
     <footer>
         <div class="row footer">
-            <div class="col-md-2 box"></div>
-            <div class="col-md-6 box">
+            <div class="col-md-4 box"></div>
+            <div class="col-md-4 box">
                 <a href="#" data-toggle="modal" style="color:lightyellow;" target="new">Copyright 2024 by VTH</a>
             </div>
-            <div class="col-md-4 box">
-                <a href="feedback.php" style="color:lightyellow;text-decoration:underline"  target="new">Phản hồi</a>
-            </div>
+            <div class="col-md-4 box"></div>
         </div>
+
+<!-- Modal Phản hồi -->
+<!-- <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header text-center" style="background-color: #007bff; color: white;">
+        <h5 class="modal-title" id="feedbackModalLabel" style="font-weight: bold;">Phản hồi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background-color: red; color: white; border-radius: 50%; width: 30px; height: 30px; text-align: center;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form method="post" action="feeduser.php?q=feedback.php">
+
+          <input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">
+
+          <div class="form-group">
+            <label for="feedback">Nội dung phản hồi</label>
+            <textarea class="form-control" id="feedback" name="feedback" rows="5" placeholder="Nhập nội dung phản hồi của bạn"></textarea>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Gửi phản hồi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+  </div>
+</div>
     </footer>
 </body>
 </html>

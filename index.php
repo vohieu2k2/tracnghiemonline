@@ -232,13 +232,11 @@ else{}
     </div>
     </div>
     <div class="row footer">
-      <div class="col-md-4 box">
+      <div class="col-md-6 box">
         <a href="#" data-toggle="modal" data-target="#login" style="color:lightyellow">Đăng nhập trang admin</a></div>
-        <div class="col-md-4 box">
+        <div class="col-md-6 box">
                 <a href="#" data-toggle="modal" style="color:lightyellow;" target="new">Copyright 2024 by VTH</a>
             </div>
-        <div class="col-md-4 box">
-          <a href="feedback.php" style="color:lightyellow;" onmouseover="this.style('color:yellow')" target="new">Phản hồi</a></div>
 
           <!-- Ô đăng nhập -->
           <div class="modal fade" id="login">
